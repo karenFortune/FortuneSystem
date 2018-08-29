@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace FortuneSystem.Models.Pedido
+namespace FortuneSystem.Models.Pedidos
 {
-    public class PedidoData
+    public class PedidosData
     {
         private Conexion conn = new Conexion();
         private SqlCommand comando = new SqlCommand();
@@ -59,7 +59,7 @@ namespace FortuneSystem.Models.Pedido
         }*/
 
         //Permite crear un nuevo PO
-        public void AgregarPO(Pedido ordenCompra)
+        public void AgregarPO(Pedidos ordenCompra)
         {
             comando.Connection = conn.AbrirConexion();
             comando.CommandText = "AgregarPedido";

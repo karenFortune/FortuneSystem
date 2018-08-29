@@ -1,11 +1,16 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
+
+
 namespace FortuneSystem.Models.DescripcionItem
 {
-    public class DescripcionItem
+    public partial class DescripcionItem
     {
         [Display(Name = "Id")]
         public int IdItems { get; set; }
@@ -27,8 +32,9 @@ namespace FortuneSystem.Models.DescripcionItem
         public float Precio { get; set; }
 
         [Display(Name = "No. PO")]
-        [Column(Storage = "ID_PEDIDOS")]
-        public Pedido pedido = new Pedido();
+        [Column("ID_PEDIDOS")]
+        public int Pedidos { get; set; }
+        
 
     }
 }

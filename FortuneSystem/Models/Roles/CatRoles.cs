@@ -13,6 +13,7 @@ namespace FortuneSystem.Models.Roles
         public int Id { get; set; }
         [Required(ErrorMessage = "Ingrese el Rol.")]
         [Display(Name = "Rol")]
-        public string Rol { get; set; }
+        public string Rol { get; set; }  
+     
     }
 }

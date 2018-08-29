@@ -1,4 +1,4 @@
-﻿using FortuneSystem.Models.Pedido;
+﻿using FortuneSystem.Models.Pedidos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ namespace FortuneSystem.Controllers
     public class PedidoController : Controller
     {
         // GET: Pedido
-        PedidoData objPedido = new PedidoData();
+        PedidosData objPedido = new PedidosData();
         /* public ActionResult Index()
          {
              List<Pedido> listaPedidos = new List<Pedido>();
@@ -28,7 +28,7 @@ namespace FortuneSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CrearPO([Bind] Pedido ordenCompra)
+        public ActionResult CrearPO([Bind] Pedidos ordenCompra)
         {
             if (ModelState.IsValid)
             {

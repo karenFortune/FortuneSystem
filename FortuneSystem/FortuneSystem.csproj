@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.EntityDataSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.EntityDataSource.6.0.0\lib\net40\Microsoft.AspNet.EntityDataSource.dll</HintPath>
@@ -60,6 +60,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.109.1\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.109.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -159,6 +168,7 @@
     <Compile Include="Controllers\Catalogos\GeneroController.cs" />
     <Compile Include="Controllers\Catalogos\TallasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
@@ -193,15 +203,15 @@
     <Compile Include="Models\Catalogos\CatTallaItem.cs" />
     <Compile Include="Models\Catalogos\CatTallaItemData.cs" />
     <Compile Include="Models\Conexion.cs" />
-    <Compile Include="Models\Item\DescripcionItem.cs" />
-    <Compile Include="Models\Item\DescripcionItemData.cs" />
+    <Compile Include="Models\Items\DescripcionItem.cs" />
+    <Compile Include="Models\Items\DescripcionItemData.cs" />
     <Compile Include="Models\Enum.cs" />
-    <Compile Include="Models\Item\ItemTalla.cs" />
-    <Compile Include="Models\Item\ItemTallaData.cs" />
+    <Compile Include="Models\Items\ItemTalla.cs" />
+    <Compile Include="Models\Items\ItemTallaData.cs" />
     <Compile Include="Models\Login\LoginData.cs" />
-    <Compile Include="Models\Pedido\Pedido.cs" />
-    <Compile Include="Models\Pedido\PedidoData.cs" />
-    <Compile Include="Models\Pedido\ResumenPO.cs" />
+    <Compile Include="Models\Pedidos\Pedidos.cs" />
+    <Compile Include="Models\Pedidos\PedidosData.cs" />
+    <Compile Include="Models\Pedidos\ResumenPO.cs" />
     <Compile Include="Models\Roles\CatRoles.cs" />
     <Compile Include="Models\Roles\CatRolesData.cs" />
     <Compile Include="Models\Usuarios\CatUsuario.cs" />
@@ -804,7 +814,8 @@
     <Content Include="Views\Genero\Detalles.cshtml" />
     <Content Include="Views\Genero\Editar.cshtml" />
     <Content Include="Views\Genero\Eliminar.cshtml" />
-    <Content Include="Views\Pedido\CrearPO.cshtml" />
+    <Content Include="Views\Pedidos\CrearPO.cshtml" />
+    <Content Include="Views\Items\CrearItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -865,7 +876,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.1\build\net46\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

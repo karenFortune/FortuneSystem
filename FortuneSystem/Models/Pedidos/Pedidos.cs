@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace FortuneSystem.Models.Pedido
+namespace FortuneSystem.Models.Pedidos
 {
-    public class Pedido
+    public partial class Pedidos
     {
         [Display(Name = "Id PO")]
         public int IdPedido { get; set; }
@@ -30,9 +30,9 @@ namespace FortuneSystem.Models.Pedido
 
         [Required(ErrorMessage = "Ingrese la fecha de cancelación.")]
         [Display(Name = "Fecha Cancelación")]
-        public  DateTime FechaCancel { get; set; }
-     
-    
+        public DateTime FechaCancel { get; set; }
+
+
         [Required(ErrorMessage = "Ingrese la fecha de registro.")]
         [Display(Name = "Fecha Registro")]
         public DateTime FechaOrden { get; set; }
