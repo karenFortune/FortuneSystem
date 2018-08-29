@@ -20,7 +20,5 @@ namespace FortuneSystem
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
-    /**
-     * jfiorejhfgpirtuehgprtuih  uihgreuighprui  
-     * */
+  
 }
