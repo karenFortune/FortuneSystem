@@ -19,7 +19,5 @@ namespace FortuneSystem
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-    }
-    //jfidfgjiorejfgiorej
-  
+    }  
 }
