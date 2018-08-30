@@ -1,0 +1,18 @@
+CREATE TABLE recibos (
+id_recibo int IDENTITY(1,1) PRIMARY KEY,
+fecha datetime,
+total_recibidas int,
+total_pendientes int,
+usuario int
+);
+
+ALTER TABLE recibos add  id_po char(10);
+
+CREATE TABLE recibos_item (
+id_po_summary int,
+id_recibo int,
+total_recibidas int,
+total_restante int,
+id_medida int
+);
+

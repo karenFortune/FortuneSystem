@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\RecibosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -816,6 +817,7 @@
     <Content Include="Views\Genero\Eliminar.cshtml" />
     <Content Include="Views\Pedidos\CrearPO.cshtml" />
     <Content Include="Views\Items\CrearItems.cshtml" />
+    <Content Include="Views\Recibos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
