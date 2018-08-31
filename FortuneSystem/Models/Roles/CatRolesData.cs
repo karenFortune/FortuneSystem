@@ -70,6 +70,8 @@ namespace FortuneSystem.Models.Roles
                 roles.Rol= leer["rol"].ToString();
 
             }
+           
+            conn.CerrarConexion();
             return roles;
 
         }

@@ -9,7 +9,6 @@
 <h2>Administraci&oacute;n de Usuarios</h2>
 
 <p>
-    
     <a href="@Url.Action("CrearUsuario")">
         <button type="button" class="btn btn-primary" id="nuevo-usuario" data-toggle="modal">
             <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Usuarios
@@ -54,7 +53,7 @@
                     @Html.DisplayFor(modelItem => item.Apellidos)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cargo)
+                    @Html.DisplayFor(modelItem => item.CatRoles.Rol)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
