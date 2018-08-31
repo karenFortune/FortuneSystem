@@ -170,7 +170,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PedidosController.cs" />
+    <Compile Include="Controllers\PedidosController.cs" /> 
+    <Compile Include="Controllers\RecibosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -213,6 +214,8 @@
     <Compile Include="Models\Pedidos\Pedidos.cs" />
     <Compile Include="Models\Pedidos\PedidosData.cs" />
     <Compile Include="Models\Pedidos\ResumenPO.cs" />
+    <Compile Include="Models\Recibos\Recibos.cs" />
+    <Compile Include="Models\Recibos\RecibosData.cs" />
     <Compile Include="Models\Roles\CatRoles.cs" />
     <Compile Include="Models\Roles\CatRolesData.cs" />
     <Compile Include="Models\Usuarios\CatUsuario.cs" />
@@ -820,6 +823,9 @@
     <Content Include="Views\Pedidos\CrearPO.cshtml" />
     <Content Include="Views\Items\CrearItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMenu.cshtml" />
+    <Content Include="Views\Recibos\Index.cshtml" />
+    <Content Include="Views\Recibos\Datos_PO.cshtml" />
+    <Content Include="Views\Recibos\Datos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
