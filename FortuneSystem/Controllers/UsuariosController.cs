@@ -13,39 +13,40 @@ namespace FortuneSystem.Controllers
     {
         CatUsuarioData objCatUser= new CatUsuarioData();
         CatRolesData objCaRoles = new CatRolesData();
+        CatUsuario usuario = new CatUsuario();
         // GET: Usuarios
         public ActionResult Index()
         {
-          //  Roles
+            
+            //  Roles
             List<CatUsuario> listaUsuarios = new List<CatUsuario>();
-            listaUsuarios = objCatUser.ListaUsuarios().ToList();
-
+            listaUsuarios = objCatUser.ListaUsuarios().ToList();               
+            
             return View(listaUsuarios);
         }
 
-
-
-        [HttpGet]
+       [HttpGet]
         public ActionResult CrearUsuario()
         {
             CatUsuario usuario = new CatUsuario();
 
             List<CatRoles> listaRoles = usuario.ListaRoles;
             listaRoles = objCaRoles.ListaRoles().ToList();
-            usuario.Cargo = 1;
             ViewBag.listRoles = new SelectList(listaRoles, "Id", "rol", usuario.Cargo);
          
-            return View();
+            return View(usuario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CrearUsuario([Bind] CatUsuario usuario)
         {
+           
             if(ModelState.IsValid)
             {
-   
-
+                string rol = Request.Form["listRoles"].ToString();
+                usuario.Cargo=Int32.Parse(rol);
+               usuario.CatRoles= objCaRoles.ConsultarListaRoles(usuario.Cargo);
                 objCatUser.AgregarUsuarios(usuario);
                 return RedirectToAction("Index");
             }
@@ -61,6 +62,7 @@ namespace FortuneSystem.Controllers
             }
 
             CatUsuario usuario = objCatUser.ConsultarListaUsuarios(id);
+            usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
             if (usuario == null)
             {
                 return View();
@@ -76,10 +78,19 @@ namespace FortuneSystem.Controllers
             if(id == null)
             {
                 return View();
-            }
+            }      
+           
 
             CatUsuario usuario = objCatUser.ConsultarListaUsuarios(id);
-            if(usuario == null)
+            CatRoles roles = new CatRoles();
+            List<CatRoles> listaRoles = usuario.ListaRoles;
+            listaRoles = objCaRoles.ListaRoles().ToList();
+            usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
+            usuario.CatRoles.Id = usuario.Cargo;
+            ViewBag.listRoles = new SelectList(listaRoles, "Id", "rol", usuario.Cargo);
+
+
+            if (usuario == null)
             {
                 return View();
             }
@@ -98,6 +109,9 @@ namespace FortuneSystem.Controllers
             }
             if (ModelState.IsValid)
             {
+                string rol = Request.Form["Rol"].ToString();
+                usuarios.Cargo = Int32.Parse(rol);
+                //usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
                 objCatUser.ActualizarUsuarios(usuarios);
                 return RedirectToAction("Index");
             }

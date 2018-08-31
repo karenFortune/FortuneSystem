@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FortuneSystem.Models.Roles;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -27,6 +28,7 @@ namespace FortuneSystem.Models.Usuarios
             while (leerFilas.Read())
             {
                 CatUsuario usuarios = new CatUsuario();
+                CatRoles roles = new CatRoles();
                 usuarios.Id = Convert.ToInt32(leerFilas["Id"]);
                 usuarios.NoEmpleado = Convert.ToInt32(leerFilas["NoEmpleado"]);
                 usuarios.Nombres = leerFilas["Nombres"].ToString();
@@ -34,9 +36,10 @@ namespace FortuneSystem.Models.Usuarios
                 usuarios.Cargo = Convert.ToInt32(leerFilas["Cargo"]);
                 usuarios.Email = leerFilas["Email"].ToString();
                 usuarios.Contrasena = leerFilas["Contrasena"].ToString();
-        
-
+                roles.Rol= leerFilas["rol"].ToString();
+                usuarios.CatRoles = roles;
                 listUsuarios.Add(usuarios);
+           
             }
             leerFilas.Close();
             conn.CerrarConexion();

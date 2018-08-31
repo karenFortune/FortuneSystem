@@ -170,7 +170,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PedidoController.cs" />
+    <Compile Include="Controllers\PedidosController.cs" /> 
     <Compile Include="Controllers\RecibosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
@@ -193,6 +193,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AplicationDbContext.cs" />
     <Compile Include="Models\Catalogos\CatCliente.cs" />
     <Compile Include="Models\Catalogos\CatClienteData.cs" />
     <Compile Include="Models\Catalogos\CatClienteFinales.cs" />
@@ -761,7 +762,9 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -819,6 +822,7 @@
     <Content Include="Views\Genero\Eliminar.cshtml" />
     <Content Include="Views\Pedidos\CrearPO.cshtml" />
     <Content Include="Views\Items\CrearItems.cshtml" />
+    <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <Content Include="Views\Recibos\Index.cshtml" />
     <Content Include="Views\Recibos\Recibo_general.cshtml" />
   </ItemGroup>
