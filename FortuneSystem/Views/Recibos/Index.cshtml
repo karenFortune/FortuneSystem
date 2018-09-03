@@ -28,35 +28,20 @@
                     }
                 });
             });
-
-
         });
-
-        function pageLoad() {
-            $(function () {
-                var availableTags = [ @Html.Raw(@ViewData["lista_pos"])];
-                $("#caja_po").autocomplete({
-                    source: function (request, response) {
-                        var results = $.ui.autocomplete.filter(availableTags, request.term);
-                        response(results.slice(0, 10));
-                    }
-                });
-            });
-
-        }
-
+       
     </script>
 </head>
 <body>
 
 
-    <div>
+    <div>   
         
         <form>
-            <div class="form-group row" method="post" action="/Recibos/Recibo_general">
+            <div class="form-group row" method="post" action="/Recibos/Buscar_lista_summary">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Orden de compra (PO) </label>
                 <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="caja_po">
+                    <input type="text"  class="form-control-plaintext" id="caja_po">
                 </div>
             </div>
            
@@ -64,9 +49,8 @@
         </form>
 
 
-
     </div>
-
+    
 
 
 </body>

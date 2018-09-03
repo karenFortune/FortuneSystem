@@ -18,17 +18,19 @@ namespace FortuneSystem.Controllers
             return View();
         }
 
-        public ActionResult Recibo_general()
+        
+        public string Buscar_lista_summary()
         {
             /*string idpo = Request.Form["caja_po"].ToString();
             int total = Convert.ToInt32(Request.Form["caja_total_recibidas"]);
             DatosRecibos r = new DatosRecibos();
             r.Registrar_alta(idpo, total);    */
 
-            string idpo = Request.Form["caja_po"].ToString();
+            /*string idpo = Request.Form["caja_po"].ToString();
             DatosRecibos r = new DatosRecibos();
-            r.Buscar_orden_compra();
-            return View("Index");
+            ViewData["lista"]=r.llenar_lista_po_summary(idpo);
+            return View("Index");*/
+            return "HOLA";
            
         }
 

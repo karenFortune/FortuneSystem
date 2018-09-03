@@ -9,7 +9,7 @@ namespace FortuneSystem.Models
 {
     public class Conexion
     {
-        private SqlConnection conn = new SqlConnection("Server=W_KAREN;Database=FortuneTest;Integrated Security =true");
+        private SqlConnection conn = new SqlConnection("Server=W_PROGRAMMER2;Database=FortuneTest;Integrated Security =true");
 
         public SqlConnection AbrirConexion()
         {
