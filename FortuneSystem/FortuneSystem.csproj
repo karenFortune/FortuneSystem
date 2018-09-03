@@ -219,8 +219,8 @@
     <Compile Include="Models\Pedidos\Pedidos.cs" />
     <Compile Include="Models\Pedidos\PedidosData.cs" />
     <Compile Include="Models\Pedidos\ResumenPO.cs" />
-    <Compile Include="Models\Recibos\Recibos.cs" />
-    <Compile Include="Models\Recibos\RecibosData.cs" />
+    <Compile Include="Models\Recibos\DatosRecibos.cs" />
+    <Compile Include="Models\Recibos\Recibo.cs" />
     <Compile Include="Models\Roles\CatRoles.cs" />
     <Compile Include="Models\Roles\CatRolesData.cs" />
     <Compile Include="Models\Usuarios\CatUsuario.cs" />
