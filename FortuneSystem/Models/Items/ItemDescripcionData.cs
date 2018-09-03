@@ -14,6 +14,32 @@ namespace FortuneSystem.Models.Items
         private SqlCommand comando = new SqlCommand();
         private SqlDataReader leerFilas = null;
 
+
+        //Muestra la lista de Items
+        public IEnumerable<ItemDescripcion> ListaItems()
+        {
+            List<ItemDescripcion> listItems = new List<ItemDescripcion>();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Listar_Item_Desc";
+            comando.CommandType = CommandType.StoredProcedure;
+            leerFilas = comando.ExecuteReader();
+
+            while (leerFilas.Read())
+            {
+                ItemDescripcion items = new ItemDescripcion();
+                items.ItemId = Convert.ToInt32(leerFilas["ITEM_ID"]);
+                items.ItemEstilo = leerFilas["ITEM_STYLE"].ToString();
+                items.Descripcion = leerFilas["DESCRIPTION"].ToString();
+                listItems.Add(items);
+
+            }
+            leerFilas.Close();
+            conn.CerrarConexion();
+
+            return listItems;
+        }
+
+
         //Permite crear un nuevo Item descripcion
         public void AgregarItemDescripcion(ItemDescripcion itemDesc)
         {

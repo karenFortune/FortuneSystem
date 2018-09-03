@@ -19,7 +19,7 @@ namespace FortuneSystem.Controllers
         {            
             //  Lista de Roles
             List<CatUsuario> listaUsuarios = new List<CatUsuario>();
-          //  listaUsuarios = objCatUser.ListaUsuarios().ToList();               
+            listaUsuarios = objCatUser.ListaUsuarios().ToList();               
             
             return View(listaUsuarios);
         }

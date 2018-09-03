@@ -14,35 +14,35 @@ namespace FortuneSystem.Models.POSummary
         private SqlDataReader leer = null;
 
         //Muestra la lista de PO Summary
-      /*  public IEnumerable<POSummary> ListaPOSummary()
-        {
-            List<POSummary> listSummary = new List<POSummary>();
-            comando.Connection = conn.AbrirConexion();
-            comando.CommandText = "Listar_Usuarios";
-            comando.CommandType = CommandType.StoredProcedure;
-            leerFilas = comando.ExecuteReader();
+        /*  public IEnumerable<POSummary> ListaPOSummary()
+          {
+              List<POSummary> listSummary = new List<POSummary>();
+              comando.Connection = conn.AbrirConexion();
+              comando.CommandText = "Listar_Usuarios";
+              comando.CommandType = CommandType.StoredProcedure;
+              leerFilas = comando.ExecuteReader();
 
-            while (leerFilas.Read())
-            {
-                POSummary ItemSummary = new POSummary();
-                CatRoles roles = new CatRoles();
-                usuarios.Id = Convert.ToInt32(leerFilas["Id"]);
-                usuarios.NoEmpleado = Convert.ToInt32(leerFilas["NoEmpleado"]);
-                usuarios.Nombres = leerFilas["Nombres"].ToString();
-                usuarios.Apellidos = leerFilas["Apellidos"].ToString();
-                usuarios.Cargo = Convert.ToInt32(leerFilas["Cargo"]);
-                usuarios.Email = leerFilas["Email"].ToString();
-                usuarios.Contrasena = leerFilas["Contrasena"].ToString();
-                roles.Rol = leerFilas["rol"].ToString();
-                usuarios.CatRoles = roles;
-                listUsuarios.Add(usuarios);
+              while (leerFilas.Read())
+              {
+                  POSummary ItemSummary = new POSummary();
+                  CatRoles roles = new CatRoles();
+                  usuarios.Id = Convert.ToInt32(leerFilas["Id"]);
+                  usuarios.NoEmpleado = Convert.ToInt32(leerFilas["NoEmpleado"]);
+                  usuarios.Nombres = leerFilas["Nombres"].ToString();
+                  usuarios.Apellidos = leerFilas["Apellidos"].ToString();
+                  usuarios.Cargo = Convert.ToInt32(leerFilas["Cargo"]);
+                  usuarios.Email = leerFilas["Email"].ToString();
+                  usuarios.Contrasena = leerFilas["Contrasena"].ToString();
+                  roles.Rol = leerFilas["rol"].ToString();
+                  usuarios.CatRoles = roles;
+                  listUsuarios.Add(usuarios);
 
-            }
-            leerFilas.Close();
-            conn.CerrarConexion();
+              }
+              leerFilas.Close();
+              conn.CerrarConexion();
 
-            return listUsuarios;
-        }*/
+              return listUsuarios;
+          }*/
 
         public void AgregarItems(POSummary items)
         {
@@ -55,10 +55,46 @@ namespace FortuneSystem.Models.POSummary
             comando.Parameters.AddWithValue("@Qty", items.Cantidad);
             comando.Parameters.AddWithValue("@Price", items.Precio);
             comando.Parameters.AddWithValue("@IdPedidos", items.PedidosId);
-            
+
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
 
         }
+
+        public string Verificar_Item_CD(string cadena)
+        {
+            string texto = null;
+            cadena = cadena.TrimEnd();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "VerificarItem";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Cadena", cadena);
+            texto = (string)comando.ExecuteScalar();
+            comando.Parameters.Clear();
+            conn.CerrarConexion();
+            if (texto != null) texto = texto.TrimEnd();
+            return texto;
+        }
+
+        public string Verificar_Color_CD(string cadena)
+        {
+            string texto = null;
+            cadena = cadena.TrimEnd();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "VerificarColor";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Cadena", cadena);
+            texto = (string)comando.ExecuteScalar();
+            comando.Parameters.Clear();
+            conn.CerrarConexion();
+            if (texto != null) texto = texto.TrimEnd();
+            return texto;
+        }
+
+       
+
+
+
+
     }
 }

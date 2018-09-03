@@ -1,5 +1,6 @@
 ﻿using FortuneSystem.Models.Catalogos;
 using FortuneSystem.Models.Pedidos;
+using FortuneSystem.Models.POSummary;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +17,7 @@ namespace FortuneSystem.Controllers
         CatClienteData objCliente = new CatClienteData();
         CatClienteFinalData objClienteFinal = new CatClienteFinalData();
         CatStatusData objEstados = new CatStatusData();
+        CatGeneroData objGenero = new CatGeneroData();
         public int estado;
         /* public ActionResult Index()
          {
@@ -30,10 +32,10 @@ namespace FortuneSystem.Controllers
         public ActionResult CrearPO()
         {
             OrdenesCompra pedido = new OrdenesCompra();
-
+            POSummary summary = new POSummary();
             ListasClientes(pedido);
             ListaEstados(pedido);
-
+            ListaGenero(summary);
 
             return View();
         }
@@ -77,6 +79,15 @@ namespace FortuneSystem.Controllers
             pedido.CatClienteFinal = objClienteFinal.ConsultarListaClientesFinal(pedido.ClienteFinal);
 
 
+
+        }
+
+        public void ListaGenero(POSummary summary)
+        {
+            List<CatGenero> listaGenero = summary.ListaGeneros;
+            listaGenero = objGenero.ListaGeneros().ToList();
+
+            ViewBag.listGenero = new SelectList(listaGenero, "IdGender", "Genero", summary.IdGenero);
 
         }
 
