@@ -27,22 +27,18 @@ namespace FortuneSystem.Models.Usuarios
 
         [ForeignKey("Cargo")]
         [Column("Cargo")]
-        public int Cargo { get; set; }
-     
+        public int Cargo { get; set; }  
+        
         public virtual CatRoles CatRoles { get; set; }
+        public List<CatRoles> ListaRoles { get; set; }
 
-        
-
-
-       
-        
         [Required(ErrorMessage = "Ingrese el Correo Electrónico.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Ingrese la Contraseña.")]
         [Display(Name = "Contraseña")]
         public string Contrasena { get; set; }
 
-        public List<CatRoles> ListaRoles { get; set; }
+      
 
 
 

@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
-
+    
 
 </head>
 <body>
@@ -119,6 +119,18 @@
             });
 
             $('#selectCargo').select2({
+                selectOnClose: true
+            });
+
+            $('#selectCliente').select2({
+                selectOnClose: true
+            });
+
+            $('#selectClienteFinal').select2({
+                selectOnClose: true
+            });
+
+            $('#selectEstado').select2({
                 selectOnClose: true
             });
 

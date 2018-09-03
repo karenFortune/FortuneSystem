@@ -1,4 +1,4 @@
-﻿using FortuneSystem.Models.DescripcionItem;
+﻿using FortuneSystem.Models.POSummary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +24,7 @@ namespace FortuneSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CrearItems([Bind] DescripcionItem descItem)
+        public ActionResult CrearItems([Bind] POSummary descItem)
         {
             if (ModelState.IsValid)
             {
@@ -33,5 +33,7 @@ namespace FortuneSystem.Controllers
             }
             return View(descItem);
         }
+
+
     }
 }

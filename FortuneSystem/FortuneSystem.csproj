@@ -162,6 +162,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CatalogosController.cs" />
+    <Compile Include="Controllers\Catalogos\CatStatusController.cs" />
     <Compile Include="Controllers\Catalogos\ClienteController.cs" />
     <Compile Include="Controllers\Catalogos\ClienteFinalController.cs" />
     <Compile Include="Controllers\Catalogos\ColoresController.cs" />
@@ -170,7 +171,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PedidosController.cs" /> 
+    <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\RecibosController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
@@ -202,11 +203,15 @@
     <Compile Include="Models\Catalogos\CatGenero.cs" />
     <Compile Include="Models\Catalogos\CatClienteFinalData.cs" />
     <Compile Include="Models\Catalogos\CatGeneroData.cs" />
+    <Compile Include="Models\Catalogos\CatStatus.cs" />
+    <Compile Include="Models\Catalogos\CatStatusData.cs" />
     <Compile Include="Models\Catalogos\CatTallaItem.cs" />
     <Compile Include="Models\Catalogos\CatTallaItemData.cs" />
     <Compile Include="Models\Conexion.cs" />
-    <Compile Include="Models\Items\DescripcionItem.cs" />
-    <Compile Include="Models\Items\DescripcionItemData.cs" />
+    <Compile Include="Models\Items\ItemDescripcion.cs" />
+    <Compile Include="Models\Items\ItemDescripcionData.cs" />
+    <Compile Include="Models\Items\POSummary.cs" />
+    <Compile Include="Models\Items\POSummaryData.cs" />
     <Compile Include="Models\Enum.cs" />
     <Compile Include="Models\Items\ItemTalla.cs" />
     <Compile Include="Models\Items\ItemTallaData.cs" />
@@ -745,6 +750,7 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -771,7 +777,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -820,12 +828,14 @@
     <Content Include="Views\Genero\Detalles.cshtml" />
     <Content Include="Views\Genero\Editar.cshtml" />
     <Content Include="Views\Genero\Eliminar.cshtml" />
-    <Content Include="Views\Pedidos\CrearPO.cshtml" />
+    <Content Include="Views\Pedidos\CrearPOS.cshtml" />
     <Content Include="Views\Items\CrearItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <Content Include="Views\Recibos\Index.cshtml" />
     <Content Include="Views\Recibos\Datos_PO.cshtml" />
     <Content Include="Views\Recibos\Datos.cshtml" />
+    <Content Include="Views\Pedidos\CrearPO.cshtml" />
+    <Content Include="Views\CatStatus\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

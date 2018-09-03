@@ -59,7 +59,7 @@ namespace FortuneSystem.Models.Pedidos
         }*/
 
         //Permite crear un nuevo PO
-        public void AgregarPO(Pedidos ordenCompra)
+        public void AgregarPO(OrdenesCompra ordenCompra)
         {
             comando.Connection = conn.AbrirConexion();
             comando.CommandText = "AgregarPedido";
@@ -72,6 +72,7 @@ namespace FortuneSystem.Models.Pedidos
             comando.Parameters.AddWithValue("@datecancel", ordenCompra.FechaCancel);
             comando.Parameters.AddWithValue("@datePO", ordenCompra.FechaOrden);
             comando.Parameters.AddWithValue("@totUnid", ordenCompra.TotalUnidades);
+            comando.Parameters.AddWithValue("@idStatus", ordenCompra.IdStatus);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
