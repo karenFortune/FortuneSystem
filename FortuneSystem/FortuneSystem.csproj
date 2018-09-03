@@ -832,8 +832,6 @@
     <Content Include="Views\Items\CrearItems.cshtml" />
     <Content Include="Views\Shared\_LayoutMenu.cshtml" />
     <Content Include="Views\Recibos\Index.cshtml" />
-    <Content Include="Views\Recibos\Datos_PO.cshtml" />
-    <Content Include="Views\Recibos\Datos.cshtml" />
     <Content Include="Views\Pedidos\CrearPO.cshtml" />
     <Content Include="Views\CatStatus\Index.cshtml" />
   </ItemGroup>
