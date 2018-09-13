@@ -11,7 +11,8 @@ namespace FortuneSystem.Models.Pedidos
     {
         private Conexion conn = new Conexion();
         private SqlCommand comando = new SqlCommand();
-        private SqlDataReader leer = null;
+        //private SqlDataReader leer = null;
+        int IdPedido;
 
         //Muestra la lista de PO
       /*  public IEnumerable<Pedido> ListaOrdenCompra()
@@ -73,10 +74,30 @@ namespace FortuneSystem.Models.Pedidos
             comando.Parameters.AddWithValue("@datePO", ordenCompra.FechaOrden);
             comando.Parameters.AddWithValue("@totUnid", ordenCompra.TotalUnidades);
             comando.Parameters.AddWithValue("@idStatus", ordenCompra.IdStatus);
-
+                 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
 
-        }
+        }    
+
+        public int Obtener_Utlimo_po() {
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+            try
+            {
+                cmd.Connection = conn.AbrirConexion();
+                cmd.CommandText = "SELECT ID_PEDIDO FROM PEDIDO WHERE ID_PEDIDO = (SELECT MAX(ID_PEDIDO) FROM PEDIDO) ";
+                cmd.CommandType = CommandType.Text;
+                reader = cmd.ExecuteReader();
+                while (reader.Read()) {
+                    return Convert.ToInt32(reader["ID_PEDIDO"]);
+                }
+                conn.CerrarConexion();
+            }
+            finally { conn.CerrarConexion(); }
+            return 0;
+        }      
+
+       
     }
 }

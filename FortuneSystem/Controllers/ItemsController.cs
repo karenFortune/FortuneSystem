@@ -13,6 +13,7 @@ namespace FortuneSystem.Controllers
     {
         DescripcionItemData objItems = new DescripcionItemData();
         CatGeneroData objGenero = new CatGeneroData();
+        ItemDescripcionData objEstilo = new ItemDescripcionData();
         // GET: Items
         [HttpGet]
         public ActionResult Index()
@@ -46,6 +47,18 @@ namespace FortuneSystem.Controllers
             listaGenero = objGenero.ListaGeneros().ToList();
 
             ViewBag.listGenero = new SelectList(listaGenero, "IdGender", "Genero", summary.IdGenero);
+
+        }
+
+        [HttpGet]
+        public ActionResult RegistrarEstilo([Bind] ItemDescripcion estilo, string ItemEstilo, string DescEstilo)
+        {
+
+            estilo.ItemEstilo = ItemEstilo;
+            estilo.Descripcion = DescEstilo;
+            objEstilo.AgregarItemDescripcion(estilo);
+            return RedirectToAction("Index");
+
 
         }
 

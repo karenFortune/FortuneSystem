@@ -37,6 +37,18 @@ namespace FortuneSystem.Controllers.Catalogos
         }
 
         [HttpGet]
+        public ActionResult Registrarcolor([Bind] CatColores colores, string CodigoColor, string DescColor)
+        {
+            
+                colores.CodigoColor = CodigoColor;
+                colores.DescripcionColor = DescColor;
+                objColores.AgregarColores(colores);
+                return RedirectToAction("Index");
+            
+           
+        }
+
+        [HttpGet]
         public ActionResult Detalles(int? id)
         {
             if(id == null)
@@ -85,6 +97,8 @@ namespace FortuneSystem.Controllers.Catalogos
             }
             return View(colores);
         }
+
+
 
         [HttpGet]
         public ActionResult Eliminar(int? id)

@@ -11,7 +11,7 @@ namespace FortuneSystem.Models.Catalogos
     {
         private Conexion conn = new Conexion();
         private SqlCommand comando = new SqlCommand();
-        private SqlDataReader leer = null;
+        private SqlDataReader leerCliente = null;
 
         //Muestra la lista de clientes
         public IEnumerable<CatCliente> ListaClientes()
@@ -20,19 +20,44 @@ namespace FortuneSystem.Models.Catalogos
             comando.Connection = conn.AbrirConexion();
             comando.CommandText = "Listar_Clientes";
             comando.CommandType = CommandType.StoredProcedure;
-            leer = comando.ExecuteReader();
+            leerCliente = comando.ExecuteReader();
 
-            while (leer.Read())
+            while (leerCliente.Read())
             {
                 CatCliente clientes = new CatCliente()
                 {
-                    Customer = Convert.ToInt32(leer["CUSTOMER"]),
-                    Nombre = leer["NAME"].ToString()
+                    Customer = Convert.ToInt32(leerCliente["CUSTOMER"]),
+                    Nombre = leerCliente["NAME"].ToString()
                 };  
 
                 listClientes.Add(clientes);
             }
-            leer.Close();
+            leerCliente.Close();
+            conn.CerrarConexion();
+
+            return listClientes;
+        }
+
+        public IEnumerable<CatCliente> ListaClientes2()
+        {
+            SqlDataReader leerClienteP = null;
+            List<CatCliente> listClientes = new List<CatCliente>();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Listar_Clientes";
+            comando.CommandType = CommandType.StoredProcedure;
+            leerClienteP = comando.ExecuteReader();
+
+            while (leerCliente.Read())
+            {
+                CatCliente clientes = new CatCliente()
+                {
+                    Customer = Convert.ToInt32(leerClienteP["CUSTOMER"]),
+                    Nombre = leerClienteP["NAME"].ToString()
+                };
+
+                listClientes.Add(clientes);
+            }
+            leerClienteP.Close();
             conn.CerrarConexion();
 
             return listClientes;
@@ -62,12 +87,12 @@ namespace FortuneSystem.Models.Catalogos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.AddWithValue("@Id", id);
 
-            leer = comando.ExecuteReader();
-            while (leer.Read())
+            leerCliente = comando.ExecuteReader();
+            while (leerCliente.Read())
             {
 
-                clientes.Customer= Convert.ToInt32(leer["CUSTOMER"]);
-                clientes.Nombre = leer["NAME"].ToString();
+                clientes.Customer= Convert.ToInt32(leerCliente["CUSTOMER"]);
+                clientes.Nombre = leerCliente["NAME"].ToString();
        
             }
             return clientes;

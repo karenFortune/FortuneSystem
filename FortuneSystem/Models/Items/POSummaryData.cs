@@ -55,10 +55,33 @@ namespace FortuneSystem.Models.POSummary
             comando.Parameters.AddWithValue("@Qty", items.Cantidad);
             comando.Parameters.AddWithValue("@Price", items.Precio);
             comando.Parameters.AddWithValue("@IdPedidos", items.PedidosId);
+            comando.Parameters.AddWithValue("@IdGenero", items.IdGenero);
+            comando.Parameters.AddWithValue("@IdTela", items.IdTela);
+            comando.Parameters.AddWithValue("@TipoCamiseta", items.TipoCamiseta);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
 
+        }
+
+        public int Obtener_Utlimo_Item()
+        {
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+            try
+            {
+                cmd.Connection = conn.AbrirConexion();
+                cmd.CommandText = "SELECT ID_PO_SUMMARY FROM PO_SUMMARY WHERE ID_PO_SUMMARY = (SELECT MAX(ID_PO_SUMMARY) FROM PO_SUMMARY) ";
+                cmd.CommandType = CommandType.Text;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    return Convert.ToInt32(reader["ID_PO_SUMMARY"]);
+                }
+                conn.CerrarConexion();
+            }
+            finally { conn.CerrarConexion(); }
+            return 0;
         }
 
         public string Verificar_Item_CD(string cadena)

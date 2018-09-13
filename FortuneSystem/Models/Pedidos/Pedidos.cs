@@ -15,7 +15,8 @@ namespace FortuneSystem.Models.Pedidos
         [Display(Name = "Id PO")]
         public int IdPedido { get; set; }
 
-        [Required(ErrorMessage = "Ingrese el número de referencia de la orden.")]
+        //[Required(ErrorMessage = "Ingrese el número de referencia de la orden.")]
+        //[RegularExpression("/[^A-Z\u00f1\u00d1\u0020\0-9]/g", ErrorMessage = "El Orden Ref. debe contener sólo números y letras.")]
         [Display(Name = "Orden Ref.")]
         public string PO { get; set; }
 
@@ -49,10 +50,13 @@ namespace FortuneSystem.Models.Pedidos
 
 
         [Required(ErrorMessage = "Ingrese la fecha de cancelación.")]
+        
+        [RegularExpression("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$", ErrorMessage = "Formato de fecha incorrecta.")]
         [Display(Name = "Fecha Cancelación")]
         public DateTime FechaCancel { get; set; }
 
         [Required(ErrorMessage = "Ingrese la fecha de registro.")]
+        [RegularExpression("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$", ErrorMessage = "Formato de fecha incorrecta.")]
         [Display(Name = "Fecha Registro")]
         public DateTime FechaOrden { get; set; }
 
@@ -65,5 +69,9 @@ namespace FortuneSystem.Models.Pedidos
         public List<CatClienteFinal> ListaClientesFinal { get; set; }
 
         public List<CatStatus> ListaCatStatus { get; set; }
+
+        public List<CatGenero> ListarTallasPorGenero { get; set; }
+
+
     }
 }

@@ -7,5 +7,11 @@ namespace FortuneSystem.Models.Item
 {
     public class ItemTalla
     {
+        public int Id { get; set; }
+        public string Talla { get; set; }
+        public int Cantidad { get; set; }
+        public int Ejemplos { get; set; }
+        public int Extras { get; set; }
+        public int IdSummary { get; set; }
     }
 }

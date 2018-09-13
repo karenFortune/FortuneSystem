@@ -71,7 +71,7 @@ namespace FortuneSystem.Models.Recibos
                 comando.CommandText = "SELECT PS.ID_PO_SUMMARY FROM PO_SUMMARY PS, PO P WHERE P.ID_PEDIDO=PS.ID_PEDIDO AND P.PO='" + po + "' ";
                 leerFilas = comando.ExecuteReader();
                 while (leerFilas.Read()){
-                     lista=+Convert.ToString(leerFilas["ID_PO_SUMMARY"])+"*";
+                     //lista=+Convert.ToString(leerFilas["ID_PO_SUMMARY"])+"*";
                 }
             }finally { conn.CerrarConexion(); }
             return lista;

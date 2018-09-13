@@ -9,7 +9,21 @@ namespace FortuneSystem.Models
 {
     public class Conexion
     {
-        private SqlConnection conn = new SqlConnection("Server=W_PROGRAMMER2;Database=FortuneTest;Integrated Security =true");
+
+       // SqlConnection conn = new SqlConnection();
+       /* SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder
+              {
+                  DataSource = "fortunesp.database.windows.net",
+                  InitialCatalog = "FortuneTest",
+                  UserID = "AdminFB",
+                  Password = "Admin@2018"
+            
+
+    };*/
+
+       // private 
+
+        private SqlConnection conn = new SqlConnection("Server=tcp:fortunesp.database.windows.net,1433;Initial Catalog=FortuneTest;Persist Security Info=False;User ID=AdminFB;Password=Admin@2018;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
         public SqlConnection AbrirConexion()
         {

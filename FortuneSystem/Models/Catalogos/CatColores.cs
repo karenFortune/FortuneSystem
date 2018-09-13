@@ -12,7 +12,7 @@ namespace FortuneSystem.Models.Catalogos
         public int IdColor { get; set; }
 
         [Required(ErrorMessage = "Ingrese el código del color.")]
-        [Display(Name = "Código")]
+        [Display(Name = "Código Color")]
         public string CodigoColor { get; set; }
 
         [Required(ErrorMessage = "Ingrese la descripción del color.")]

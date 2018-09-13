@@ -14,5 +14,11 @@ namespace FortuneSystem.Models.Catalogos
         [Required(ErrorMessage = "Ingrese el Género")]
         [Display(Name = "Género")]
         public string Genero { get; set; }
+
+        public virtual CatTallaItem CatTallaItem { get; set; }
+
+        [Display(Name = "Código Género")]
+        public string GeneroCode { get; set; }
+
     }
 }

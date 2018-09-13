@@ -1,11 +1,14 @@
 ﻿using FortuneSystem.Models.Catalogos;
+using FortuneSystem.Models.Item;
 using FortuneSystem.Models.Items;
+using FortuneSystem.Models.Pedidos;
 using FortuneSystem.Models.POSummary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace FortuneSystem.Controllers
 {
@@ -15,6 +18,10 @@ namespace FortuneSystem.Controllers
         CatColoresData objColores = new CatColoresData();
         CatGeneroData objGenero = new CatGeneroData();
         ItemDescripcionData objItemsDes = new ItemDescripcionData();
+        PedidosData objPedido = new PedidosData();
+        ItemTallaData objTalla = new ItemTallaData();
+
+        public int IdPedido;
         // GET: POSummary
         public ActionResult Index()
         {
@@ -24,8 +31,12 @@ namespace FortuneSystem.Controllers
         [HttpGet]
         public ActionResult CrearItems()
         {
-            POSummary summary = new POSummary();
-           // ListaGenero(summary);
+
+            // ListaGenero(summary);
+            PedidosController pedidos = new PedidosController();
+            //pedidos.ObtenerListas();
+            string genero = "";
+            ListarTallasPorGenero(genero);
             return View();
         }
 
@@ -41,6 +52,30 @@ namespace FortuneSystem.Controllers
             return View(descItem);
         }
 
+
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public ActionResult RegistrarItem([Bind] POSummary descItem, string EstiloItem, string IdColor, int Cantidad, float Precio, string IdGenero, int IdTela, string TipoCamiseta)
+        {
+            int PedidosId = objPedido.Obtener_Utlimo_po();
+            descItem.PedidosId = PedidosId;                           
+            //objItems.AgregarItems(descItem);           
+
+            return View(descItem);
+        }
+
+        public ActionResult CreateColor(POSummary descItem)
+        {
+            if (ModelState.IsValid)
+            {
+                string colorEstilo = descItem.CatColores.CodigoColor;
+                string  colorDesc = descItem.CatColores.DescripcionColor;
+                return View();
+            }
+            else
+                return View("Index");
+        }
+
         [HttpPost]
         public JsonResult Autocomplete_Item_Estilo(string keyword)
         {
@@ -50,8 +85,51 @@ namespace FortuneSystem.Controllers
             //Searching records from list using LINQ query  
             var ItemLista = (from N in listaItems
                              where N.ItemEstilo.StartsWith(keyword.ToUpper())
-                             select new { N.ItemEstilo});
+                             select new { Estilo = N.ItemEstilo, Descr = N.Descripcion, Id=N.ItemId});
             return Json(ItemLista, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Obtener_Lista_Tallas(List<string> ListTalla)
+        {
+            ItemTalla tallaItem = new ItemTalla();
+            List<string> tallas = ListTalla[0].Split('*').ToList();
+            List<string> cantidad = ListTalla[1].Split('*').ToList();
+            List<string> extras = ListTalla[2].Split('*').ToList();
+            List<string> ejemplos = ListTalla[3].Split('*').ToList();
+            int i = 0;
+            foreach (var item in tallas)
+            {
+                i++; 
+            }
+
+            i = i - 1;
+           for(int v = 0; v < i; v++)
+            {
+                tallaItem.Talla = tallas[v];
+
+                string cantidadT = cantidad[v];
+                tallaItem.Cantidad = Int32.Parse(cantidadT);
+
+                string extraT = extras[v];
+                if(extraT == "")
+                {
+                    extraT = "0";
+                }
+                tallaItem.Extras = Int32.Parse(extraT);
+
+                string ejemploT = ejemplos[v];
+                if (ejemploT == "")
+                {
+                    ejemploT = "0";
+                }
+                tallaItem.Ejemplos= Int32.Parse(ejemploT);
+
+                tallaItem.IdSummary = objItems.Obtener_Utlimo_Item();
+
+                //objTalla.RegistroTallas(tallaItem);
+           }      
+            return Json("0", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -60,10 +138,14 @@ namespace FortuneSystem.Controllers
             POSummary summary = new POSummary();
             List<ItemDescripcion> listaItems = summary.ListaItems;
             listaItems = objItemsDes.ListaItems().ToList();
-            //Searching records from list using LINQ query  
             var ItemLista = (from N in listaItems
                              where N.ItemEstilo.StartsWith(keyword.ToUpper())
-                             select new { N.ItemEstilo });
+                             select new {
+                                 label = N.ItemEstilo,
+                                 val = N.ItemEstilo,
+                                 descripcion = N.Descripcion,
+                                 id= N.ItemId
+                             });
             return Json(ItemLista, JsonRequestBehavior.AllowGet);
         }
 
@@ -73,23 +155,36 @@ namespace FortuneSystem.Controllers
             POSummary summary = new POSummary();
             List<CatColores> listaColores = summary.ListaColores;
             listaColores = objColores.ListaColores().ToList();
-            //Searching records from list using LINQ query  
             var Colores = (from N in listaColores
                            where N.CodigoColor.StartsWith(keyword.ToUpper())
-                             select new { N.CodigoColor });
+                             select new { N.CodigoColor, Color=N.DescripcionColor, Id=N.IdColor});
             return Json(Colores, JsonRequestBehavior.AllowGet);
         }
-
-        private void Verificar_Item(string cadena)
+            
+        [HttpGet]
+        public ActionResult ListarTallasPorGenero(string Genero)
         {
-            string texto = VerificarItem(cadena);
-          //  txtItemDes.Text = texto;
+                POSummary summary = new POSummary();
+                List<CatGenero> listaGenero = summary.ListarTallasPorGenero;
+                listaGenero = objGenero.ListarTallasPorGenero(Genero).ToList();
+                summary.ListarTallasPorGenero = listaGenero;
+
+                return View(summary);       
+                        
         }
 
-        public string VerificarItem(string cadena)
+        public JsonResult List(string Genero)
         {
-            string texto = objItems.Verificar_Item_CD(cadena);
-            return texto;
+            POSummary summary = new POSummary();
+            List<CatGenero> listaGenero = summary.ListarTallasPorGenero;
+            listaGenero = objGenero.ListarTallasPorGenero(Genero).ToList();
+            summary.ListarTallasPorGenero = listaGenero;
+            return Json(listaGenero, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ListarTallasPorGenero(POSummary descItem)
+        {
+            return View();
         }
 
 

@@ -27,7 +27,8 @@ namespace FortuneSystem.Models.Catalogos
                 CatGenero generos = new CatGenero()
                 {
                     IdGender = Convert.ToInt32(leer["ID_GENDER"]),
-                    Genero = leer["GENERO"].ToString()
+                    Genero = leer["GENERO"].ToString(),
+                    GeneroCode = leer["GENERO_CODE"].ToString(),
                 };
 
                 listGenero.Add(generos);
@@ -72,6 +73,39 @@ namespace FortuneSystem.Models.Catalogos
             }
             return generos;
 
+        }
+
+        public IEnumerable<CatGenero> ListarTallasPorGenero(string genero)
+        {
+            List<CatGenero> listGenero = new List<CatGenero>();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Listar_Tallas_Por_Genero";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Genero", genero);
+            leer = comando.ExecuteReader();
+
+            while (leer.Read())
+            {
+                CatGenero generos = new CatGenero()
+                {
+                    IdGender = Convert.ToInt32(leer["ID_GENDER"]),
+                    Genero = leer["GENERO"].ToString()
+                };
+
+                CatTallaItem catTalla = new CatTallaItem()
+                {
+                    Id = Convert.ToInt32(leer["ID"]),
+                    Talla = leer["TALLA"].ToString()
+                };
+                generos.CatTallaItem = catTalla;
+
+                listGenero.Add(generos);
+               
+            }
+            leer.Close();
+            conn.CerrarConexion();
+
+            return listGenero;
         }
 
         //Permite actualiza la informacion de un genero

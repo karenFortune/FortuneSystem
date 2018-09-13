@@ -18,7 +18,14 @@ namespace FortuneSystem.Controllers
         CatClienteFinalData objClienteFinal = new CatClienteFinalData();
         CatStatusData objEstados = new CatStatusData();
         CatGeneroData objGenero = new CatGeneroData();
+        DescripcionItemData objItems = new DescripcionItemData();
+        CatTelaData objTela = new CatTelaData();
+        CatTipoCamisetaData objTipoC = new CatTipoCamisetaData();
         public int estado;
+        public int IdPO;
+        public int pedidos;
+        
+
         /* public ActionResult Index()
          {
              List<Pedido> listaPedidos = new List<Pedido>();
@@ -29,6 +36,7 @@ namespace FortuneSystem.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult CrearPO()
         {
             OrdenesCompra pedido = new OrdenesCompra();
@@ -36,10 +44,11 @@ namespace FortuneSystem.Controllers
             ListasClientes(pedido);
             ListaEstados(pedido);
             ListaGenero(summary);
-
+            ListaTela(summary);
+            ListaTipoCamiseta(summary);
             return View();
         }
-
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CrearPO([Bind] OrdenesCompra ordenCompra)
@@ -48,12 +57,25 @@ namespace FortuneSystem.Controllers
             {
                 ObtenerIdClientes(ordenCompra);
                 ListaEstados(ordenCompra);
-               // ordenCompra.IdStatus = estado;
-                objPedido.AgregarPO(ordenCompra);
-                return RedirectToAction("CrearPO");
+
             }
+
+           
+
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult RegistrarPO([Bind] OrdenesCompra ordenCompra,string po, int VPO, DateTime FechaCancel, DateTime FechaOrden, int Cliente, int Clientefinal, int TotalUnidades)
+        {
+            ListaEstados(ordenCompra);                          
+            //objPedido.AgregarPO(ordenCompra);           
+            
             return View(ordenCompra);
         }
+
+        
 
         public void ListasClientes(OrdenesCompra pedido)
         {
@@ -87,9 +109,29 @@ namespace FortuneSystem.Controllers
             List<CatGenero> listaGenero = summary.ListaGeneros;
             listaGenero = objGenero.ListaGeneros().ToList();
 
-            ViewBag.listGenero = new SelectList(listaGenero, "IdGender", "Genero", summary.IdGenero);
+            ViewBag.listGenero = new SelectList(listaGenero, "GeneroCode", "Genero", summary.IdGenero);
 
         }
+
+        public void ListaTela(POSummary summary)
+        {
+            List<CatTela> listaTela = summary.ListaTelas;
+            listaTela = objTela.ListaTela().ToList();
+
+            ViewBag.listTela = new SelectList(listaTela, "Id_Tela", "Tela", summary.IdTela);
+
+        }
+
+        public void ListaTipoCamiseta(POSummary summary)
+        {
+            List<CatTipoCamiseta> listaTipoCamiseta = summary.ListaTipoCamiseta;
+            listaTipoCamiseta = objTipoC.ListaTipoCamiseta().ToList();
+
+            ViewBag.listTipoCamiseta = new SelectList(listaTipoCamiseta, "TipoProducto", "DescripcionTipo", summary.TipoCamiseta);
+
+        }
+
+
 
         public void ListaEstados(OrdenesCompra pedido)
         {
@@ -107,5 +149,7 @@ namespace FortuneSystem.Controllers
             }
 
         }
+
+
     }
 }

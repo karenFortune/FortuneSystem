@@ -53,7 +53,7 @@ namespace FortuneSystem.Models.Items
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
 
-        }
+        }   
 
 
         public string Verificar_Item_CD(string cadena)
