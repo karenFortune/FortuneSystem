@@ -52,12 +52,14 @@ namespace FortuneSystem.Models.Pedidos
         [Required(ErrorMessage = "Ingrese la fecha de cancelación.")]
         
         [RegularExpression("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$", ErrorMessage = "Formato de fecha incorrecta.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
         [Display(Name = "Fecha Cancelación")]
         public DateTime FechaCancel { get; set; }
 
         [Required(ErrorMessage = "Ingrese la fecha de registro.")]
         [RegularExpression("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$", ErrorMessage = "Formato de fecha incorrecta.")]
         [Display(Name = "Fecha Registro")]
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime FechaOrden { get; set; }
 
         [Required(ErrorMessage = "Ingrese el total de unidades.")]

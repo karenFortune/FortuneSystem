@@ -20,6 +20,7 @@ namespace FortuneSystem.Controllers
         ItemDescripcionData objItemsDes = new ItemDescripcionData();
         PedidosData objPedido = new PedidosData();
         ItemTallaData objTalla = new ItemTallaData();
+        CatTallaItemData objTallas = new CatTallaItemData();
 
         public int IdPedido;
         // GET: POSummary
@@ -109,6 +110,10 @@ namespace FortuneSystem.Controllers
                 tallaItem.Talla = tallas[v];
 
                 string cantidadT = cantidad[v];
+                if (cantidadT == "")
+                {
+                    cantidadT = "0";
+                }
                 tallaItem.Cantidad = Int32.Parse(cantidadT);
 
                 string extraT = extras[v];
@@ -127,9 +132,12 @@ namespace FortuneSystem.Controllers
 
                 tallaItem.IdSummary = objItems.Obtener_Utlimo_Item();
 
-                //objTalla.RegistroTallas(tallaItem);
-           }      
+                 //objTalla.RegistroTallas(tallaItem);
+        
+                
+            }
             return Json("0", JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]
@@ -160,7 +168,20 @@ namespace FortuneSystem.Controllers
                              select new { N.CodigoColor, Color=N.DescripcionColor, Id=N.IdColor});
             return Json(Colores, JsonRequestBehavior.AllowGet);
         }
-            
+
+
+        [HttpPost]
+        public JsonResult Autocomplete_Talla(string keyword)
+        {
+            POSummary summary = new POSummary();
+            List<CatTallaItem> listTallas = summary.ListaTallas;
+            listTallas = objTallas.ListaTallas().ToList();
+            var TallaLista = (from N in listTallas
+                             where N.Talla.StartsWith(keyword.ToUpper())
+                             select new { N.Talla});
+            return Json(TallaLista, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult ListarTallasPorGenero(string Genero)
         {

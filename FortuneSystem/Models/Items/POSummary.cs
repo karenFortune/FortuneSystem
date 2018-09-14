@@ -13,10 +13,10 @@ using FortuneSystem.Models.Item;
 
 namespace FortuneSystem.Models.POSummary
 {
- 
+
     public class POSummary
     {
-  
+
         [Display(Name = "Id")]
         public int IdItems { get; set; }
 
@@ -47,7 +47,7 @@ namespace FortuneSystem.Models.POSummary
 
         [Display(Name = "No. PO")]
         [Column("ID_PEDIDOS")]
-        [ForeignKey("PO_SUMMARY")] 
+        [ForeignKey("PO_SUMMARY")]
         public virtual int PedidosId { get; set; }
         public virtual OrdenesCompra Pedidos { get; set; }
 
@@ -72,6 +72,9 @@ namespace FortuneSystem.Models.POSummary
         public string TipoCamiseta { get; set; }
 
         public List<CatTipoCamiseta> ListaTipoCamiseta { get; set; }
+
+        public List<CatTallaItem> ListaTallas { get; set; }
+        
 
 
 

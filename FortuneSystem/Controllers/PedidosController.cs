@@ -26,12 +26,12 @@ namespace FortuneSystem.Controllers
         public int pedidos;
         
 
-        /* public ActionResult Index()
+         public ActionResult Index()
          {
-             List<Pedido> listaPedidos = new List<Pedido>();
+             List<OrdenesCompra> listaPedidos = new List<OrdenesCompra>();
              listaPedidos = objPedido.ListaOrdenCompra().ToList();
              return View(listaPedidos);
-         }*/
+         }
 
 
 
@@ -63,6 +63,25 @@ namespace FortuneSystem.Controllers
            
 
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Detalles(int? id)
+        {
+            if (id == null)
+            {
+                return View();
+            }
+            //OrdenesCompra pedido = 
+           // CatUsuario usuario = objCatUser.ConsultarListaUsuarios(id);
+           // usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
+           /* if (usuario == null)
+            {
+                return View();
+            }*/
+            return View();
+
+
         }
 
         [HttpPost]

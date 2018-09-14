@@ -38,6 +38,31 @@ namespace FortuneSystem.Models.Catalogos
             return listTallas;
         }
 
+
+public List<String> Lista_tallas()
+        {
+            Conexion con = new Conexion();
+            SqlCommand com = new SqlCommand();
+            SqlDataReader leer = null;
+            //string listaStag="";
+            List<String> Lista = new List<String>();
+            com.Connection = con.AbrirConexion();
+            com.CommandText = "SELECT TALLA from CAT_ITEM_SIZE order by TALLA asc ";
+            leer = com.ExecuteReader();
+            while (leer.Read())
+            {
+
+                Lista.Add(leer["TALLA"].ToString());
+            }
+            leer.Close();
+            con.CerrarConexion();
+            //return listaStag;
+            return Lista;
+
+
+        }
+
+
         //Permite crear una nueva talla
         public void AgregarTallas(CatTallaItem tallas)
         {

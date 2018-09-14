@@ -43,7 +43,7 @@
                 }
             });
             if (error != 0) {
-                alertify.notify('Todos los campos son obligatorios.', 'error', 5, null);
+                alertify.notify('Todos los campos son requeridos.', 'error', 5, null);
                 var alert = alertify.alert("Mensaje", 'Todos los campos son obligatorios.').set('label', 'Aceptar');
                 alert.set({ transition: 'zoom' }); 
                 alert.set('modal', false); 
@@ -183,7 +183,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Regresar", "CrearPO")
+    @Html.ActionLink("Regresar", "Index")
 </div>
 
 @Scripts.Render("~/bundles/jqueryval")

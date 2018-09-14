@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FortuneSystem.Models.Catalogos;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,31 +12,39 @@ namespace FortuneSystem.Models.Pedidos
     {
         private Conexion conn = new Conexion();
         private SqlCommand comando = new SqlCommand();
-        //private SqlDataReader leer = null;
+        private SqlDataReader leer = null;
         int IdPedido;
 
         //Muestra la lista de PO
-      /*  public IEnumerable<Pedido> ListaOrdenCompra()
+        public IEnumerable<OrdenesCompra> ListaOrdenCompra()
         {
-            List<Pedido> listPedidos = new List<Pedido>();
+            List<OrdenesCompra> listPedidos = new List<OrdenesCompra>();
             comando.Connection = conn.AbrirConexion();
-            comando.CommandText = "ListarPedidos";
+            comando.CommandText = "Listar_Pedidos";
             comando.CommandType = CommandType.StoredProcedure;
             leer = comando.ExecuteReader();
 
             while (leer.Read())
             {
-                Pedido pedidos = new Pedido()
+                CatStatus status = new CatStatus()
                 {
-                   IdPedido = Convert.ToInt32(leer["ID_PEDIDO"]),
+                    Estado= leer["ESTADO"].ToString()
+                };
+                OrdenesCompra pedidos = new OrdenesCompra()
+                {
+                    IdPedido = Convert.ToInt32(leer["ID_PEDIDO"]),
                     PO = leer["PO"].ToString(),
                     VPO = Convert.ToInt32(leer["VPO"]),
                     Cliente = Convert.ToInt32(leer["CUSTOMER"]),
                     ClienteFinal = Convert.ToInt32(leer["CUSTOMER_FINAL"]),
                     FechaCancel = Convert.ToDateTime(leer["DATE_CANCEL"]),
                     FechaOrden = Convert.ToDateTime(leer["DATE_ORDER"]),
-                    TotalUnidades = Convert.ToInt32(leer["TOTAL_UNITS"])
+                    TotalUnidades = Convert.ToInt32(leer["TOTAL_UNITS"]),
+                    IdStatus = Convert.ToInt32(leer["ID_STATUS"]),
+                    
                 };
+
+                pedidos.CatStatus = status;
 
                 listPedidos.Add(pedidos);
             }
@@ -45,19 +54,34 @@ namespace FortuneSystem.Models.Pedidos
             return listPedidos;
         }
 
-        public DataTable ListarPedidos()
+        //Permite consultar los detalles de un PO
+        public OrdenesCompra ConsultarListaPO(int? id)
         {
-            DataTable Tabla = new DataTable();
-            comando.Connection = conn.AbrirConexion();
-            comando.CommandText = "ListarPedidos";
-            comando.CommandType = CommandType.StoredProcedure;
-            leer = comando.ExecuteReader();
-            Tabla.Load(leer);
-            leer.Close();
-            conn.CerrarConexion();
-            return Tabla;
+            OrdenesCompra pedidos = new OrdenesCompra();
 
-        }*/
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Lista_Pedido_Por_Id";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Id", id);
+
+            leer = comando.ExecuteReader();
+            while (leer.Read())
+            {
+
+                pedidos.PO = leer["PO"].ToString();
+                pedidos.VPO = Convert.ToInt32(leer["VPO"]);
+
+                pedidos.Cliente = Convert.ToInt32(leer["CUSTOMER"]);
+                pedidos.ClienteFinal = Convert.ToInt32(leer["CUSTOMER_FINAL"]);
+                pedidos.FechaCancel = Convert.ToDateTime(leer["DATE_CANCEL"]);
+                pedidos.FechaOrden = Convert.ToDateTime(leer["DATE_ORDER"]);
+                pedidos.TotalUnidades = Convert.ToInt32(leer["TOTAL_UNITS"]);
+                pedidos.IdStatus = Convert.ToInt32(leer["ID_STATUS"]);
+
+            }
+            return pedidos;
+
+        }
 
         //Permite crear un nuevo PO
         public void AgregarPO(OrdenesCompra ordenCompra)

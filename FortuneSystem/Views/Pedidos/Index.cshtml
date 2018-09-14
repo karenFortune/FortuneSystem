@@ -1,0 +1,74 @@
+﻿@model IEnumerable<FortuneSystem.Models.Pedidos.OrdenesCompra>
+
+@{
+    ViewBag.Title = "RECEPCIÓN PO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ordenes de Compra</h2>
+
+<p>
+    <a href="@Url.Action("CrearPO")">
+        <button type="button" class="btn btn-primary" id="nuevo-usuario" data-toggle="modal">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Nuevo PO
+        </button>
+    </a>
+</p>
+<table class="table table-striped" id="tablaPO">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VPO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCancel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaOrden)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalUnidades)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VPO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaCancel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaOrden)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalUnidades)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CatStatus.Estado)
+                </td>
+                <td>
+            
+                    @Html.ActionLink(" ", "Detalles", new { id = item.IdPedido }, new { @class = "btn btn-default glyphicon glyphicon-search", @style = "color:black", @Title = "Detalles Color" })
+        
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
