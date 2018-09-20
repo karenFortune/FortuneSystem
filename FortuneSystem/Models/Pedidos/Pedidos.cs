@@ -31,6 +31,7 @@ namespace FortuneSystem.Models.Pedidos
         public int Cliente { get; set; }
 
         public virtual CatCliente CatCliente { get; set; }
+        public List<CatCliente> LCliente { get; set; }
 
         [Required(ErrorMessage = "Ingrese el nombre del Cliente Orden.")]
         [Display(Name = "Cliente Orden")]
@@ -39,6 +40,7 @@ namespace FortuneSystem.Models.Pedidos
         public int ClienteFinal { get; set; }
 
         public virtual CatClienteFinal CatClienteFinal { get; set; }
+        public List<CatClienteFinal> LClienteFinal { get; set; }
 
         [Required(ErrorMessage = "Seleccione un estado del PO")]
         [Display(Name = "Estado")]
@@ -73,6 +75,8 @@ namespace FortuneSystem.Models.Pedidos
         public List<CatStatus> ListaCatStatus { get; set; }
 
         public List<CatGenero> ListarTallasPorGenero { get; set; }
+
+
 
 
     }

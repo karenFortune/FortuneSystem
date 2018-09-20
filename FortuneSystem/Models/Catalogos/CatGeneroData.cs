@@ -28,7 +28,7 @@ namespace FortuneSystem.Models.Catalogos
                 {
                     IdGender = Convert.ToInt32(leer["ID_GENDER"]),
                     Genero = leer["GENERO"].ToString(),
-                    GeneroCode = leer["GENERO_CODE"].ToString(),
+                    GeneroCode = leer["GENERO_CODE"].ToString()
                 };
 
                 listGenero.Add(generos);
@@ -47,6 +47,7 @@ namespace FortuneSystem.Models.Catalogos
             comando.CommandType = CommandType.StoredProcedure;
 
             comando.Parameters.AddWithValue("@Genero", generos.Genero);
+            comando.Parameters.AddWithValue("@Codigo", generos.GeneroCode);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
@@ -69,6 +70,7 @@ namespace FortuneSystem.Models.Catalogos
 
                 generos.IdGender = Convert.ToInt32(leer["ID_GENDER"]);
                 generos.Genero = leer["GENERO"].ToString();
+                generos.GeneroCode = leer["GENERO_CODE"].ToString();
 
             }
             return generos;
@@ -117,6 +119,7 @@ namespace FortuneSystem.Models.Catalogos
 
             comando.Parameters.AddWithValue("@Id", generos.IdGender);
             comando.Parameters.AddWithValue("@Genero", generos.Genero);
+            comando.Parameters.AddWithValue("@Codigo", generos.GeneroCode);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();

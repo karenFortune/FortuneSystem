@@ -1,57 +1,46 @@
-﻿
+﻿@model IEnumerable<FortuneSystem.Models.Recibos.Recibo>
 @{
     ViewBag.Title = "RECIBOS";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Fortune Recibos</title>
-    @Scripts.Render("~/Content/jquery-ui-1.12.1.custom/jquery-3.3.1.min.js")
-    @Scripts.Render("~/Content/jquery-ui-1.12.1.custom/jquery-ui.js")
-    @Styles.Render("~/Content/jquery-ui-1.12.1.custom/jquery-ui.css")
-    <script>
-        $(document).ready(function () {
-            $("#boton_agregar_recibo").click(function () {
-                alert('button clicked');
-            });
-
-            $(function () {
-                var availableTags = [ @Html.Raw(@ViewData["lista_pos"])];
-                $("#caja_po").autocomplete({
-                    source: function (request, response) {
-                        var results = $.ui.autocomplete.filter(availableTags, request.term);
-                        response(results.slice(0, 10));
-                    }
-                });
-            });
-        });
-       
-    </script>
-</head>
-<body>
-
-
-    <div>   
-        
-        <form>
-            <div class="form-group row" method="post" action="/Recibos/Buscar_lista_summary">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Orden de compra (PO) </label>
-                <div class="col-sm-10">
-                    <input type="text"  class="form-control-plaintext" id="caja_po">
-                </div>
-            </div>
-           
-            <button type="submit" class="btn btn-primary mb-2">Buscar</button>
-        </form>
-
-
+<link href="~/Content/base_m.css" rel="stylesheet" />
+<div class="panel panel-default panel-primary">
+    <div class="panel-heading">
+        <h4>Recibo de órdenes (PO)</h4>
     </div>
-    
+    <div style="margin:1.5em;">
+        <table class="table table-striped" id="tablaRecibos">
+            <thead class="bg-primary">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.id_pedido)</th>
+                    <th>@Html.DisplayNameFor(model => model.id_po)</th>
+                    <th>@Html.DisplayNameFor(model => model.fecha)</th>
+                    <th>@Html.DisplayNameFor(model => model.total)</th>
+                    <th></th>
 
 
-</body>
-</html>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.id_pedido)</td>
+                        <td>@Html.DisplayFor(modelItem => item.id_po)</td>
+                        <td>@Html.DisplayFor(modelItem => item.fecha)</td>
+                        <td>@Html.DisplayFor(modelItem => item.total)</td>
+
+                        <td>@Html.ActionLink(" ", "Estilos", new { id = item.id_pedido }, new { @class = "btn btn-default glyphicon glyphicon-edit", @style = "color:black", @Title = "Recibir PO" })</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+

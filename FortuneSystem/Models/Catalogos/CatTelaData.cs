@@ -28,7 +28,7 @@ namespace FortuneSystem.Models.Catalogos
                 {
                     Id_Tela = Convert.ToInt32(leer["ID"]),
                     Tela = leer["FABRIC"].ToString(),
-                    EstiloTela = leer["CODE"].ToString()
+                    CodigoTela = leer["CODE"].ToString()
                 };
 
                 listTela.Add(tela);
@@ -37,6 +37,71 @@ namespace FortuneSystem.Models.Catalogos
             conn.CerrarConexion();
 
             return listTela;
+        }
+
+        //Permite crear una nueva tela
+        public void AgregarTelas(CatTela telas)
+        {
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "AgregarTela";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@Tela", telas.Tela);
+            comando.Parameters.AddWithValue("@Codigo", telas.CodigoTela);
+            comando.ExecuteNonQuery();
+            conn.CerrarConexion();
+
+        }
+
+        //Permite consultar los detalles de una tela
+        public CatTela ConsultarListaTelas(int? id)
+        {
+            CatTela telas = new CatTela();
+
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Listar_Tela_Por_Id";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Id", id);
+
+            leer = comando.ExecuteReader();
+            while (leer.Read())
+            {
+
+                telas.Id_Tela = Convert.ToInt32(leer["ID"]);
+                telas.Tela = leer["FABRIC"].ToString();
+                telas.CodigoTela = leer["CODE"].ToString();
+
+            }
+            return telas;
+
+        }
+
+        //Permite actualiza la informacion de una tela
+        public void ActualizarTelas(CatTela telas)
+        {
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Actualizar_Tela";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@Id", telas.Id_Tela);
+            comando.Parameters.AddWithValue("@Tela", telas.Tela);
+            comando.Parameters.AddWithValue("@Codigo", telas.CodigoTela);
+
+            comando.ExecuteNonQuery();
+            conn.CerrarConexion();
+        }
+
+        //Permite eliminar la informacion de una tela
+        public void EliminarTelas(int? id)
+        {
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "EliminarTela";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@Id", id);
+
+            comando.ExecuteNonQuery();
+            conn.CerrarConexion();
         }
     }
 }

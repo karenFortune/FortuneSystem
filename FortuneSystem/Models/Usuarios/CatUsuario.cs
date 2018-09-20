@@ -33,9 +33,12 @@ namespace FortuneSystem.Models.Usuarios
         public List<CatRoles> ListaRoles { get; set; }
 
         [Required(ErrorMessage = "Ingrese el Correo Electrónico.")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Por favor, introduce un correo electrónico valido.")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Ingrese la Contraseña.")]
         [Display(Name = "Contraseña")]
+        [DataType(DataType.Password)]
         public string Contrasena { get; set; }
 
       

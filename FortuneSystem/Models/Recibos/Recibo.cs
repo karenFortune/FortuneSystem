@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Web.Hosting;
+using System.Web.Mvc;
 using System.IO;
 
-namespace FortuneSystem.Models
+namespace FortuneSystem.Models.Recibos
 {
     public class Recibo
     {
         //RECIBO GENERAL
+        [Display(Name = "PO")]
         public string id_po { get; set; }
-        public int id_recibo { get; set; }
+        [Display(Name = "FECHA DE ORDEN")]
         public string fecha { get; set; }
-        public int usuario { get; set; }
-        public int total_recibido { get; set; }
-        public int total_pendiente { get; set; }
-
-        //RECIBO POR ESTILO
-        public int id_po_summary { get; set; }
-        public int id_medida { get; set; }
+        [Display(Name = "TOTAL DE UNIDADES")]
+        public int total { get; set; }
+        [Display(Name = "PEDIDO")]
+        public int id_pedido { get; set; }
+        public DateTime fecha_cancelacion { get; set; }
     }
 }

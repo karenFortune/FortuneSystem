@@ -27,7 +27,7 @@ namespace FortuneSystem.Models.Catalogos
                 CatClienteFinal clientesFinal = new CatClienteFinal()
                 {
                     CustomerFinal = Convert.ToInt32(leer["CUSTOMER_FINAL"]),
-                    Nombre = leer["NAME"].ToString()
+                    NombreCliente = leer["NAME"].ToString()
                 };
 
                 listClientesFinal.Add(clientesFinal);
@@ -45,7 +45,7 @@ namespace FortuneSystem.Models.Catalogos
             comando.CommandText = "AgregarClienteFinal";
             comando.CommandType = CommandType.StoredProcedure;
 
-            comando.Parameters.AddWithValue("@Nombre", clientesFinal.Nombre);
+            comando.Parameters.AddWithValue("@Nombre", clientesFinal.NombreCliente);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
@@ -67,7 +67,7 @@ namespace FortuneSystem.Models.Catalogos
             {
 
                 clientesFinal.CustomerFinal = Convert.ToInt32(leer["CUSTOMER_FINAL"]);
-                clientesFinal.Nombre = leer["NAME"].ToString();
+                clientesFinal.NombreCliente = leer["NAME"].ToString();
 
             }
             return clientesFinal;
@@ -82,7 +82,7 @@ namespace FortuneSystem.Models.Catalogos
             comando.CommandType = CommandType.StoredProcedure;
 
             comando.Parameters.AddWithValue("@Id", clientesFinal.CustomerFinal);
-            comando.Parameters.AddWithValue("@Nombre", clientesFinal.Nombre);
+            comando.Parameters.AddWithValue("@Nombre", clientesFinal.NombreCliente);
 
             comando.ExecuteNonQuery();
             conn.CerrarConexion();

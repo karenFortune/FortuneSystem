@@ -13,6 +13,9 @@
     <link href="@Url.Content("~/Content/themes/base/jquery-ui.min.css")" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/alertify.min.css" />
+    <link rel="stylesheet" href="~/Content/alertifyjs/css/themes/default.min.css" />
+    <script src="~/Content/alertifyjs/alertify.min.js"></script>
 
     <!-- Libreria español -->
 
@@ -38,7 +41,8 @@
             <li class="has-subnav"><a href="@Url.Action("Index", "roles")"> <i class="glyphicon glyphicon-cog fa_menu"></i> <span class="nav-text">Roles</span></a></li>
             <li class="has-subnav"><a href="@Url.Action("Index", "pedidos")"> <i class="glyphicon  glyphicon-list-alt fa_menu"></i> <span class="nav-text">Recepci&oacute;n PO</span></a></li>
             <li class="has-subnav"><a href="@Url.Action("Index", "recibos")"> <i class="glyphicon glyphicon-download-alt fa_menu"></i> <span class="nav-text">Recibos</span></a></li>
-
+            <li class="has-subnav"><a href="@Url.Action("Index", "printshop")"> <i class="glyphicon glyphicon-tint fa_menu"></i> <span class="nav-text">PrintShop</span></a></li>
+            
 
         </ul>
 
@@ -59,13 +63,16 @@
         </footer>
     </div>
 
-   
+
 
 
     <script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
     <script src="~/Content/DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
     <script src="~/Content/resources/js/general/btn_siguiente_anterior.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
     <!-- Required jQuery and jQuery UI Javascript references -->
     <script src="@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")"></script>
     <script type="text/javascript">
@@ -118,9 +125,35 @@
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                 }
             });
+
             $('#tablaPO').dataTable({
                 responsive: true,
-                
+                "ordering": false,  
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+            $('#tablaTela').dataTable({
+                responsive: true,
+
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+            $('#tablaTipoCamiseta').dataTable({
+                responsive: true,
+
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+            $('#tablaPOEstilos').dataTable({
+                responsive: true,
+                "ordering": false, 
+                "searching": false,
+                "paging": false,
+                "scrollCollapse": true,
+                "info": false,
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
                 }
@@ -129,7 +162,7 @@
 
 
             $('#selectCargo').select2({
-               
+
                 language: {
 
                     noResults: function () {
@@ -141,11 +174,11 @@
                         return "Buscando..";
                     }
                 }
-               
+
             });
 
             $('#selectCliente').select2({
-               
+
                 language: {
 
                     noResults: function () {
@@ -157,10 +190,10 @@
                         return "Buscando..";
                     }
                 }
-            });       
+            });
 
             $("#selectClienteFinal").select2({
-                
+
                 language: {
 
                     noResults: function () {
@@ -175,7 +208,7 @@
             });
 
             $('#selectEstado').select2({
-              
+
                 language: {
 
                     noResults: function () {
@@ -203,7 +236,7 @@
                     }
                 }
             });
-           
+
             $('#selectTela').select2({
                 placeholder: "Seleccione un tipo de tela",
                 language: {
@@ -218,7 +251,7 @@
                     }
                 }
             });
-          
+
             $("#selectTipoCamiseta").select2({
                 placeholder: "Seleccione un tipo de camiseta",
                 language: {
@@ -234,17 +267,15 @@
                 }
             });
 
-         
 
- 
-  });
+
+
+        });
 
 
 
 
         $(function () {
-            // This will make every element with the class "date-picker" into a DatePicker element
-
             $.datepicker.regional['es'] = {
                 closeText: 'Cerrar',
                 prevText: '<Ant',

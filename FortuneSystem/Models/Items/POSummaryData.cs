@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FortuneSystem.Models.Catalogos;
+using FortuneSystem.Models.Items;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -44,9 +46,45 @@ namespace FortuneSystem.Models.POSummary
               return listUsuarios;
           }*/
 
+
+        //Muestra la lista de PO Summary Por PO
+          public IEnumerable<POSummary> ListaItemsPorPO(int? id)
+          {
+              List<POSummary> listSummary = new List<POSummary>();
+              comando.Connection = conn.AbrirConexion();
+              comando.CommandText = "Listar_Item_Por_Pedido";
+              comando.CommandType = CommandType.StoredProcedure;
+              comando.Parameters.AddWithValue("@Id", id);
+              leer = comando.ExecuteReader();
+
+              while (leer.Read())
+              {
+                 POSummary ItemSummary = new POSummary();
+                 ItemDescripcion Desc = new ItemDescripcion();
+                 CatColores colores = new CatColores();
+                 Desc.Descripcion= leer["DESCRIPCION_ITEM"].ToString();
+                 colores.CodigoColor = leer["CODIGO_COLOR"].ToString();
+                 colores.DescripcionColor = leer["DESCRIPCION"].ToString();
+                 ItemSummary.EstiloItem = leer["ITEM_STYLE"].ToString();                
+                 ItemSummary.Cantidad = Convert.ToInt32(leer["QTY"]);
+                 ItemSummary.Price = leer["PRICE"].ToString();
+                 ItemSummary.Total = leer["TOTAL"].ToString();
+                 ItemSummary.IdItems= Convert.ToInt32(leer["ID_PO_SUMMARY"]);
+                 ItemSummary.CatColores = colores;
+                 ItemSummary.ItemDescripcion = Desc;
+                 listSummary.Add(ItemSummary);
+
+              }
+              leer.Close();
+              conn.CerrarConexion();
+
+              return listSummary;
+          }
+
         public void AgregarItems(POSummary items)
         {
-            comando.Connection = conn.AbrirConexion();
+            Conexion conex = new Conexion();
+            comando.Connection = conex.AbrirConexion();
             comando.CommandText = "AgregarItem";
             comando.CommandType = CommandType.StoredProcedure;
 
@@ -60,17 +98,18 @@ namespace FortuneSystem.Models.POSummary
             comando.Parameters.AddWithValue("@TipoCamiseta", items.TipoCamiseta);
 
             comando.ExecuteNonQuery();
-            conn.CerrarConexion();
+            conex.CerrarConexion();
 
         }
 
         public int Obtener_Utlimo_Item()
         {
+            Conexion conex = new Conexion();
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
             try
             {
-                cmd.Connection = conn.AbrirConexion();
+                cmd.Connection = conex.AbrirConexion();
                 cmd.CommandText = "SELECT ID_PO_SUMMARY FROM PO_SUMMARY WHERE ID_PO_SUMMARY = (SELECT MAX(ID_PO_SUMMARY) FROM PO_SUMMARY) ";
                 cmd.CommandType = CommandType.Text;
                 reader = cmd.ExecuteReader();
@@ -78,9 +117,9 @@ namespace FortuneSystem.Models.POSummary
                 {
                     return Convert.ToInt32(reader["ID_PO_SUMMARY"]);
                 }
-                conn.CerrarConexion();
+                conex.CerrarConexion();
             }
-            finally { conn.CerrarConexion(); }
+            finally { conex.CerrarConexion(); }
             return 0;
         }
 

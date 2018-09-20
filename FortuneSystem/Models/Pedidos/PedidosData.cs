@@ -26,10 +26,7 @@ namespace FortuneSystem.Models.Pedidos
 
             while (leer.Read())
             {
-                CatStatus status = new CatStatus()
-                {
-                    Estado= leer["ESTADO"].ToString()
-                };
+             
                 OrdenesCompra pedidos = new OrdenesCompra()
                 {
                     IdPedido = Convert.ToInt32(leer["ID_PEDIDO"]),
@@ -40,11 +37,21 @@ namespace FortuneSystem.Models.Pedidos
                     FechaCancel = Convert.ToDateTime(leer["DATE_CANCEL"]),
                     FechaOrden = Convert.ToDateTime(leer["DATE_ORDER"]),
                     TotalUnidades = Convert.ToInt32(leer["TOTAL_UNITS"]),
-                    IdStatus = Convert.ToInt32(leer["ID_STATUS"]),
-                    
+                    IdStatus = Convert.ToInt32(leer["ID_STATUS"])
+
+                };
+                CatStatus status = new CatStatus()
+                {
+                    Estado = leer["ESTADO"].ToString()
+                };
+                CatClienteFinal clienteFinal = new CatClienteFinal()
+                {
+                    NombreCliente = leer["NAME"].ToString()
                 };
 
                 pedidos.CatStatus = status;
+                pedidos.CatClienteFinal = clienteFinal;
+   
 
                 listPedidos.Add(pedidos);
             }
@@ -83,6 +90,7 @@ namespace FortuneSystem.Models.Pedidos
 
         }
 
+
         //Permite crear un nuevo PO
         public void AgregarPO(OrdenesCompra ordenCompra)
         {
@@ -102,23 +110,44 @@ namespace FortuneSystem.Models.Pedidos
             comando.ExecuteNonQuery();
             conn.CerrarConexion();
 
-        }    
+        }
+
+        //Permite actualiza la informacion de un PO
+        public void ActualizarPedidos(OrdenesCompra ordenCompra)
+        {
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Actualizar_Pedido";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            comando.Parameters.AddWithValue("@idPO", ordenCompra.PO);
+            comando.Parameters.AddWithValue("@idPOF", ordenCompra.VPO);
+            comando.Parameters.AddWithValue("@Customer", ordenCompra.Cliente);
+            comando.Parameters.AddWithValue("@CustomerF", ordenCompra.ClienteFinal);
+            comando.Parameters.AddWithValue("@datecancel", ordenCompra.FechaCancel);
+            comando.Parameters.AddWithValue("@datePO", ordenCompra.FechaOrden);
+            comando.Parameters.AddWithValue("@totUnid", ordenCompra.TotalUnidades);
+            comando.Parameters.AddWithValue("@idStatus", ordenCompra.IdStatus);
+
+            comando.ExecuteNonQuery();
+            conn.CerrarConexion();
+        }
 
         public int Obtener_Utlimo_po() {
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
+            Conexion conex = new Conexion();
             try
             {
-                cmd.Connection = conn.AbrirConexion();
+                cmd.Connection = conex.AbrirConexion();
                 cmd.CommandText = "SELECT ID_PEDIDO FROM PEDIDO WHERE ID_PEDIDO = (SELECT MAX(ID_PEDIDO) FROM PEDIDO) ";
                 cmd.CommandType = CommandType.Text;
                 reader = cmd.ExecuteReader();
                 while (reader.Read()) {
                     return Convert.ToInt32(reader["ID_PEDIDO"]);
                 }
-                conn.CerrarConexion();
+                conex.CerrarConexion();
             }
-            finally { conn.CerrarConexion(); }
+            finally { conex.CerrarConexion(); }
             return 0;
         }      
 

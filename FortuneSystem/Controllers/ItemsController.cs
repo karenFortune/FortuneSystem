@@ -50,7 +50,7 @@ namespace FortuneSystem.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult RegistrarEstilo([Bind] ItemDescripcion estilo, string ItemEstilo, string DescEstilo)
         {
 

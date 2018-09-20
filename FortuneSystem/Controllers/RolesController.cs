@@ -36,7 +36,12 @@ namespace FortuneSystem.Controllers
             if (ModelState.IsValid)
             {
                 objCatRol.AgregarRoles(roles);
+                TempData["rolesOK"] = "Se registro correctamente el rol.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["rolesError"] = "No se pudo registrar el rol, intentelo más tarde.";
             }
             return View(roles);
         }
@@ -88,7 +93,12 @@ namespace FortuneSystem.Controllers
             if (ModelState.IsValid)
             {
                 objCatRol.ActualizarRoles(roles);
+                TempData["rolesEditar"] = "Se modifico correctamente el rol.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["rolesEditarError"] = "No se pudo modificar el rol, intentelo más tarde.";
             }
             return View(roles);
         }
@@ -116,6 +126,7 @@ namespace FortuneSystem.Controllers
         public ActionResult ConfimacionEliminar(int? id)
         {
             objCatRol.EliminarRol(id);
+            TempData["rolesEliminar"] = "Se elimino correctamente el rol.";
             return RedirectToAction("Index");
         }
 

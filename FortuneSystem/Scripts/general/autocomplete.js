@@ -38,6 +38,7 @@
     });
 
     //Autocomplete codigo de color 
+    debugger
     $("#CatColores_CodigoColor").autocomplete({
         source: function (request, response) {
             $.ajax({

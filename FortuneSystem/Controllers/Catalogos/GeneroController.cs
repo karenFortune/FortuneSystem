@@ -31,7 +31,12 @@ namespace FortuneSystem.Controllers.Catalogos
             if (ModelState.IsValid)
             {
                 objGenero.AgregarGenero(generos);
+                TempData["generoOK"] = "Se registro correctamente el género.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["generoError"] = "No se pudo registrar el género, intentelo más tarde.";
             }
             return View(generos);
         }
@@ -81,7 +86,12 @@ namespace FortuneSystem.Controllers.Catalogos
             if (ModelState.IsValid)
             {
                 objGenero.ActualizarGenero(generos);
+                TempData["generoEditar"] = "Se modifico correctamente el género.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["generoEditarError"] = "No se pudo modificar el género, intentelo más tarde.";
             }
             return View(generos);
         }
@@ -110,6 +120,7 @@ namespace FortuneSystem.Controllers.Catalogos
         public ActionResult ConfimacionEliminar(int? id)
         {
             objGenero.EliminarGenero(id);
+            TempData["generoEliminar"] = "Se elimino correctamente el género.";
             return RedirectToAction("Index");
         }
 

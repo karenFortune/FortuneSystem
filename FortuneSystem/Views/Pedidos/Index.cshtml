@@ -4,71 +4,119 @@
     ViewBag.Title = "RECEPCIÓN PO";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/base_m.css" rel="stylesheet" />
+<style>
+    tr.highlighted td {
+        background: #b3e0ff;
+    }
 
-<h2>Ordenes de Compra</h2>
+    table thead {
+        color: #fff;
+        background-color: #006bb3;
+    }
 
-<p>
-    <a href="@Url.Action("CrearPO")">
-        <button type="button" class="btn btn-primary" id="nuevo-usuario" data-toggle="modal">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Nuevo PO
-        </button>
-    </a>
-</p>
-<table class="table table-striped" id="tablaPO">
-    <thead>
-        <tr>
+    th {
+        color: #fff;
+        background-color: #006bb3;
+    }
 
-            <th>
-                @Html.DisplayNameFor(model => model.PO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VPO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaCancel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaOrden)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalUnidades)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdStatus)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    #nuevo-usuario {
+        margin-left: 30px;
+        margin-top: 1px;
+        width: 180px;
+        height: 40px;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+<div class="panel panel-primary" id="listaPO">
+    <div class="panel-heading">
+        <h2>Ordenes de Compra</h2>
+    </div>
+    <br />
+    <br />
+    <p>
+        <a href="@Url.Action("CrearPO")">
+            <button type="button" class="btn btn-primary" id="nuevo-usuario" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Nuevo PO
+            </button>
+        </a>
+        <br />
+        <br />
+    </p>
+
+    <table align="center" class="table table-striped" id="tablaPO">
+        <thead>
             <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PO)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VPO)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCancel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaOrden)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalUnidades)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CatStatus.Estado)
-                </td>
-                <td>
-            
-                    @Html.ActionLink(" ", "Detalles", new { id = item.IdPedido }, new { @class = "btn btn-default glyphicon glyphicon-search", @style = "color:black", @Title = "Detalles Color" })
-        
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.PO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VPO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CatClienteFinal.NombreCliente)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaCancel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaOrden)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalUnidades)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdStatus)
+                </th>
+                <th>Acciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VPO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CatClienteFinal.NombreCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCancel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaOrden)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalUnidades)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CatStatus.Estado)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Detalles", new { id = item.IdPedido }, new { @class = "btn btn-default glyphicon glyphicon-search", @style = "color:black", @Title = "Detalles Estilos"}) |
+                        @Html.ActionLink(" ", "ObtenerPORevision", new { id = item.IdPedido }, new { @class = "btn btn-default glyphicon glyphicon-check", @style = "color:black", @Title = "Revisar PO" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<script>
+    $('#tablaPO tr').click(function (e) {
+        $('#tablaPO tr').removeClass('highlighted');
+        $(this).addClass('highlighted');
+    });
+</script>

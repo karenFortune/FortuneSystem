@@ -47,7 +47,11 @@ namespace FortuneSystem.Controllers
                 usuario.Cargo=Int32.Parse(rol);
                usuario.CatRoles= objCaRoles.ConsultarListaRoles(usuario.Cargo);
                 objCatUser.AgregarUsuarios(usuario);
+                TempData["usuarioOK"] = "Se registro correctamente el usuario.";
                 return RedirectToAction("Index");
+            }else
+            {
+                TempData["usuarioError"] = "No se pudo registrar el usuario, intentelo más tarde.";
             }
             return View(usuario);
         }
@@ -81,7 +85,6 @@ namespace FortuneSystem.Controllers
            
 
             CatUsuario usuario = objCatUser.ConsultarListaUsuarios(id);
-            CatRoles roles = new CatRoles();
             List<CatRoles> listaRoles = usuario.ListaRoles;
             listaRoles = objCaRoles.ListaRoles().ToList();
             usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
@@ -91,6 +94,7 @@ namespace FortuneSystem.Controllers
 
             if (usuario == null)
             {
+               
                 return View();
             }
 
@@ -112,7 +116,12 @@ namespace FortuneSystem.Controllers
                 usuarios.Cargo = Int32.Parse(rol);
                 //usuario.CatRoles = objCaRoles.ConsultarListaRoles(usuario.Cargo);
                 objCatUser.ActualizarUsuarios(usuarios);
+                TempData["usuarioEditar"] = "Se modifico correctamente el usuario.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["usuarioEditarError"] = "No se pudo modificar el usuario, intentelo más tarde.";
             }
             return View(usuarios);
         }
@@ -140,6 +149,7 @@ namespace FortuneSystem.Controllers
         public ActionResult ConfimacionEliminar(int? id)
         {
             objCatUser.EliminarUsuario(id);
+            TempData["usuarioEliminar"] = "Se elimino correctamente el usuario.";
             return RedirectToAction("Index");
         }
 

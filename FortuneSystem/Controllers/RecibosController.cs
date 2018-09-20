@@ -5,36 +5,29 @@ using System.Web;
 using System.Web.Mvc;
 using FortuneSystem.Models;
 using FortuneSystem.Models.Recibos;
+using System.Globalization;
 
 namespace FortuneSystem.Controllers
 {
     public class RecibosController : Controller
     {
-        // GET: Recibos
-        public ActionResult Index()
-        {
-            DatosRecibos r = new DatosRecibos();
-            ViewData["lista_pos"]=r.Llenar_lista_autocompletado();
-            return View();
-        }
-
+        DatosRecibos invoices = new DatosRecibos();
         
-        public string Buscar_lista_summary()
-        {
-            /*string idpo = Request.Form["caja_po"].ToString();
-            int total = Convert.ToInt32(Request.Form["caja_total_recibidas"]);
-            DatosRecibos r = new DatosRecibos();
-            r.Registrar_alta(idpo, total);    */
-
-            /*string idpo = Request.Form["caja_po"].ToString();
-            DatosRecibos r = new DatosRecibos();
-            ViewData["lista"]=r.llenar_lista_po_summary(idpo);
-            return View("Index");*/
-            return "HOLA";
-           
+        public ActionResult Index(){
+            List<Recibo> listaRecibos= new List<Recibo>();
+            listaRecibos = invoices.ListaRecibos().ToList();
+            return View(listaRecibos);
         }
-
-       
+        
+        [HttpGet]
+        public ActionResult Estilos(int id)
+        {
+            /*id = 17;
+            Session["id_usuario"] = 2;*/
+            Session["id_pedido"] = id;
+            return RedirectToAction("Index", "Estilos");
+        }
+        
 
 
 

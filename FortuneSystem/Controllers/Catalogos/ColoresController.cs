@@ -31,12 +31,17 @@ namespace FortuneSystem.Controllers.Catalogos
             if (ModelState.IsValid)
             {
                 objColores.AgregarColores(colores);
+                TempData["colorOK"] = "Se registro correctamente el color.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["colorError"] = "No se pudo registrar el color, intentelo más tarde.";
             }
             return View(colores);
         }
 
-        [HttpGet]
+        [HttpPost]
         public ActionResult Registrarcolor([Bind] CatColores colores, string CodigoColor, string DescColor)
         {
             
@@ -93,7 +98,12 @@ namespace FortuneSystem.Controllers.Catalogos
             if (ModelState.IsValid)
             {
                 objColores.ActualizarColores(colores);
+                TempData["colorEditar"] = "Se modifico correctamente el color.";
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["colorEditarError"] = "No se pudo modificar el color, intentelo más tarde.";
             }
             return View(colores);
         }
@@ -123,6 +133,7 @@ namespace FortuneSystem.Controllers.Catalogos
         public ActionResult ConfimacionEliminar(int? id)
         {
             objColores.EliminarColores(id);
+            TempData["colorEliminar"] = "Se elimino correctamente el color.";
             return RedirectToAction("Index");
         }
 

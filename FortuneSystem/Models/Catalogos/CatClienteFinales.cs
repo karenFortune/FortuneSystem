@@ -12,6 +12,6 @@ namespace FortuneSystem.Models.Catalogos
         public int CustomerFinal { get; set; }
         [Required(ErrorMessage = "Ingrese el nombre del Cliente Final.")]
         [Display(Name = "Cliente Final")]
-        public string Nombre{ get; set; }
+        public string NombreCliente{ get; set; }
     }
 }

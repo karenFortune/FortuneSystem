@@ -37,9 +37,9 @@ namespace FortuneSystem.Models.Catalogos
 
             return listTallas;
         }
+        
 
-
-public List<String> Lista_tallas()
+        public List<String> Lista_tallas()
         {
             Conexion con = new Conexion();
             SqlCommand com = new SqlCommand();

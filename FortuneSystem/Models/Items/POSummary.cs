@@ -21,7 +21,7 @@ namespace FortuneSystem.Models.POSummary
         public int IdItems { get; set; }
 
         [Required(ErrorMessage = "Ingrese el estilo del Item.")]
-        [Display(Name = "Item")]
+        [Display(Name = "Estilo")]
         public string EstiloItem { get; set; }
         public virtual ItemDescripcion ItemDescripcion { get; set; }
 
@@ -41,10 +41,11 @@ namespace FortuneSystem.Models.POSummary
         [Required(ErrorMessage = "Ingrese el precio del Item.")]
         [Display(Name = "Precio")]
         [RegularExpression("[0-9]\\d{0,9}(\\.\\d{1,3})?%?$", ErrorMessage = "El Precio debe contener sólo números(.35 o 2.5)")]
-        //[DisplayFormat(DataFormatString = "{0:#.####}")]
-        [DisplayFormat(DataFormatString = "{0:n2}")]
-        public float Precio { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#.####}")]
+       // [DisplayFormat(DataFormatString = "{0:n2}")]
+        public double Precio { get; set; }
 
+        public string Price { get; set; }
         [Display(Name = "No. PO")]
         [Column("ID_PEDIDOS")]
         [ForeignKey("PO_SUMMARY")]
@@ -74,6 +75,9 @@ namespace FortuneSystem.Models.POSummary
         public List<CatTipoCamiseta> ListaTipoCamiseta { get; set; }
 
         public List<CatTallaItem> ListaTallas { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#.####}")]
+        public string Total { get; set; }
         
 
 

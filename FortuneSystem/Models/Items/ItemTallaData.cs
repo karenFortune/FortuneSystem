@@ -25,6 +25,36 @@ namespace FortuneSystem.Models.Item
             finally { conn.CerrarConexion(); }
         }
 
+        //Muestra la lista de tallas por estilo
+        public IEnumerable<ItemTalla> ListaTallasPorEstilo(int? id)
+        {
+            List<ItemTalla> listTallas = new List<ItemTalla>();
+            comando.Connection = conn.AbrirConexion();
+            comando.CommandText = "Lista_Tallas_Por_Estilo";
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@Id", id);
+            leer = comando.ExecuteReader();
+
+            while (leer.Read())
+            {
+                ItemTalla tallas = new ItemTalla()
+                {
+                    Talla = leer["TALLA"].ToString(),
+                    Cantidad = Convert.ToInt32(leer["CANTIDAD"]),
+                    Extras = Convert.ToInt32(leer["EXTRAS"]),
+                    Ejemplos= Convert.ToInt32(leer["EJEMPLOS"]),
+                    Estilo = leer["ITEM_STYLE"].ToString()
+
+                };
+
+                listTallas.Add(tallas);
+            }
+            leer.Close();
+            conn.CerrarConexion();
+
+            return listTallas;
+        }
+
 
 
     }

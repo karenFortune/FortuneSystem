@@ -55,12 +55,11 @@ namespace FortuneSystem.Controllers
 
 
         [HttpGet]
-        //[ValidateAntiForgeryToken]
         public ActionResult RegistrarItem([Bind] POSummary descItem, string EstiloItem, string IdColor, int Cantidad, float Precio, string IdGenero, int IdTela, string TipoCamiseta)
         {
             int PedidosId = objPedido.Obtener_Utlimo_po();
             descItem.PedidosId = PedidosId;                           
-            //objItems.AgregarItems(descItem);           
+           // objItems.AgregarItems(descItem);           
 
             return View(descItem);
         }
@@ -83,7 +82,6 @@ namespace FortuneSystem.Controllers
             POSummary summary = new POSummary();
             List<ItemDescripcion> listaItems = summary.ListaItems;
             listaItems = objItemsDes.ListaItems().ToList();
-            //Searching records from list using LINQ query  
             var ItemLista = (from N in listaItems
                              where N.ItemEstilo.StartsWith(keyword.ToUpper())
                              select new { Estilo = N.ItemEstilo, Descr = N.Descripcion, Id=N.ItemId});
@@ -132,7 +130,7 @@ namespace FortuneSystem.Controllers
 
                 tallaItem.IdSummary = objItems.Obtener_Utlimo_Item();
 
-                 //objTalla.RegistroTallas(tallaItem);
+                //objTalla.RegistroTallas(tallaItem);
         
                 
             }
@@ -202,6 +200,8 @@ namespace FortuneSystem.Controllers
             summary.ListarTallasPorGenero = listaGenero;
             return Json(listaGenero, JsonRequestBehavior.AllowGet);
         }
+
+        
         [HttpPost]
         public ActionResult ListarTallasPorGenero(POSummary descItem)
         {

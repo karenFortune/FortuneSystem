@@ -4,16 +4,73 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    tr.highlighted td {
+        background: #b3e0ff;
+    }
 
+    table thead {
+        color: #fff;
+        background-color: #006bb3;
+    }
+
+    th {
+        color: #fff;
+        background-color: #006bb3;
+    }
+</style>
 <h2>Administraci&oacute;n de Colores</h2>
+@{
+    if (TempData["colorOK"] != null)
+    {
+        <script type="text/javascript">
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.notify(@Html.Raw(Json.Encode(TempData["colorOK"])), 'success', 5, null);
 
+        </script>
+    }
+    if (TempData["colorError"] != null)
+    {
+        <script type="text/javascript">
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.notify(@Html.Raw(Json.Encode(TempData["colorError"])), 'error', 5, null);
+
+        </script>
+    }
+    if (TempData["colorEditar"] != null)
+    {
+        <script type="text/javascript">
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.notify(@Html.Raw(Json.Encode(TempData["colorEditar"])), 'success', 5, null);
+
+        </script>
+    }
+    if (TempData["colorEditarError"] != null)
+    {
+        <script type="text/javascript">
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.notify(@Html.Raw(Json.Encode(TempData["colorEditarError"])), 'error', 5, null);
+
+        </script>
+    }
+    if (TempData["colorEliminar"] != null)
+    {
+        <script type="text/javascript">
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.notify(@Html.Raw(Json.Encode(TempData["colorEliminar"])), 'success', 5, null);
+
+        </script>
+    }
+
+}
 <p>
     <a href="@Url.Action("CrearColor")">
         <button type="button" class="btn btn-primary" id="nuevo-usuario" data-toggle="modal">
-            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Colores
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar Nuevo Color
         </button>
     </a>
 </p>
+<br />
 <table class="table table-striped" id="tablaColores">
     <thead>
         <tr>
@@ -55,5 +112,10 @@
 
     $(document).ready(function () {
         $('#table').DataTable();
+    });
+
+    $('#tablaColores tr').click(function (e) {
+        $('#tablaColores tr').removeClass('highlighted');
+        $(this).addClass('highlighted');
     });
 </script>
